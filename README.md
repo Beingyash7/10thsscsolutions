@@ -1,4 +1,4 @@
-# Vibrant MS - Maharashtra Board Solutions
+# 10th SSC Solutions - Maharashtra Board Solutions
 
 A React + Vite website for Maharashtra Board (SSC) textbook question-answer solutions with a chapter-wise Class 10 library powered by local `public/shaalaa/*.json` datasets.
 

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vibrant-ms.pages.dev/sitemap.xml

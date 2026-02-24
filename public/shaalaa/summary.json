@@ -1,0 +1,92 @@
+[
+  {
+    "subject": "algebra_maths_1",
+    "subject_title": "SCERT Maharashtra Solutions for Algebra (Mathematics 1) [English] 10 Standard SSC",
+    "textbook_url": "https://www.shaalaa.com/textbook-solutions/scert-maharashtra-solutions-algebra-mathematics-1-english-10-standard-ssc_414",
+    "chapters": 4,
+    "question_pages": 195,
+    "failed_question_pages": 0,
+    "json": "shaalaa_ssc_10_answers\\algebra_maths_1.json",
+    "jsonl": "shaalaa_ssc_10_answers\\algebra_maths_1.jsonl"
+  },
+  {
+    "subject": "geometry_maths_2",
+    "subject_title": "SCERT Maharashtra Solutions for Geometry (Mathematics 2) [English] 10 Standard SSC",
+    "textbook_url": "https://www.shaalaa.com/textbook-solutions/scert-maharashtra-solutions-geometry-mathematics-2-english-10-standard-ssc_415",
+    "chapters": 6,
+    "question_pages": 325,
+    "failed_question_pages": 0,
+    "json": "shaalaa_ssc_10_answers\\geometry_maths_2.json",
+    "jsonl": "shaalaa_ssc_10_answers\\geometry_maths_2.jsonl"
+  },
+  {
+    "subject": "english",
+    "subject_title": "SCERT Maharashtra Solutions for English 10 Standard SSC Maharashtra State Board",
+    "textbook_url": "https://www.shaalaa.com/textbook-solutions/scert-maharashtra-solutions-english-10-standard-ssc-maharashtra-state-board_408",
+    "chapters": 6,
+    "question_pages": 47,
+    "failed_question_pages": 0,
+    "json": "shaalaa_ssc_10_answers\\english.json",
+    "jsonl": "shaalaa_ssc_10_answers\\english.jsonl"
+  },
+  {
+    "subject": "geography",
+    "subject_title": "SCERT Maharashtra Solutions for Geography (Social Science) [English] 10 Standard SSC",
+    "textbook_url": "https://www.shaalaa.com/textbook-solutions/scert-maharashtra-solutions-geography-social-science-english-10-standard-ssc_406",
+    "chapters": 9,
+    "question_pages": 227,
+    "failed_question_pages": 0,
+    "json": "shaalaa_ssc_10_answers\\geography.json",
+    "jsonl": "shaalaa_ssc_10_answers\\geography.jsonl"
+  },
+  {
+    "subject": "history_political_science",
+    "subject_title": "SCERT Maharashtra Solutions for History and Political Science (Social Science) [English] 10 Standard SSC",
+    "textbook_url": "https://www.shaalaa.com/textbook-solutions/scert-maharashtra-solutions-history-and-political-science-social-science-english-10-standard-ssc_407",
+    "chapters": 11,
+    "question_pages": 231,
+    "failed_question_pages": 0,
+    "json": "shaalaa_ssc_10_answers\\history_political_science.json",
+    "jsonl": "shaalaa_ssc_10_answers\\history_political_science.jsonl"
+  },
+  {
+    "subject": "science_tech_1",
+    "subject_title": "SCERT Maharashtra Solutions for Science and Technology 1 [English] 10 Standard SSC",
+    "textbook_url": "https://www.shaalaa.com/textbook-solutions/scert-maharashtra-solutions-science-and-technology-1-english-10-standard-ssc_416",
+    "chapters": 10,
+    "question_pages": 832,
+    "failed_question_pages": 0,
+    "json": "shaalaa_ssc_10_answers\\science_tech_1.json",
+    "jsonl": "shaalaa_ssc_10_answers\\science_tech_1.jsonl"
+  },
+  {
+    "subject": "science_tech_2",
+    "subject_title": "SCERT Maharashtra Solutions for Science and Technology 2 [English] 10 Standard SSC",
+    "textbook_url": "https://www.shaalaa.com/textbook-solutions/scert-maharashtra-solutions-science-and-technology-2-english-10-standard-ssc_417",
+    "chapters": 10,
+    "question_pages": 639,
+    "failed_question_pages": 0,
+    "json": "shaalaa_ssc_10_answers\\science_tech_2.json",
+    "jsonl": "shaalaa_ssc_10_answers\\science_tech_2.jsonl"
+  },
+  {
+    "subject": "hindi_lokbharati",
+    "subject_title": "Balbharati Solutions for Hindi Lokbharati [English] Standard 10 Maharashtra State Board",
+    "textbook_url": "https://www.shaalaa.com/textbook-solutions/balbharati-solutions-hindi-lokbharati-english-standard-10-maharashtra-state-board_275",
+    "chapters": 22,
+    "question_pages": 385,
+    "failed_question_pages": 0,
+    "json": "shaalaa_ssc_10_answers\\hindi_lokbharati.json",
+    "jsonl": "shaalaa_ssc_10_answers\\hindi_lokbharati.jsonl"
+  },
+  {
+    "subject": "marathi_second_language",
+    "subject_title": "SCERT Maharashtra Solutions for Marathi (Second Language) 10 Standard SSC",
+    "textbook_url": "https://www.shaalaa.com/textbook-solutions/scert-maharashtra-solutions-marathi-second-language-10-standard-ssc_409",
+    "chapters": 19,
+    "question_pages": 227,
+    "failed_question_pages": 0,
+    "json": "shaalaa_ssc_10_answers\\marathi_second_language.json",
+    "jsonl": "shaalaa_ssc_10_answers\\marathi_second_language.jsonl"
+  }
+]

@@ -478,6 +478,12 @@ const BookSelectionView = ({
                 src={book.imageUrl}
                 alt={book.title}
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+                fetchPriority="low"
+                width={960}
+                height={1280}
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
               />
             </div>
             <div className="p-8">

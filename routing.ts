@@ -92,7 +92,7 @@ export const navToPath = (nav: NavigationState): string => {
 export const getSeoForNav = (nav: NavigationState) => {
   const siteName = '10th SSC Solutions';
   const defaults = {
-    title: `${siteName} | Maharashtra Board Book Solutions`,
+    title: `${siteName} | Maharashtra Board Book Answers`,
     description:
       '10th SSC solutions, digest-style textbook answers and Maharashtra Board book solutions for Maths, Science, English, Hindi, Marathi, History and Geography.',
   };
@@ -100,7 +100,7 @@ export const getSeoForNav = (nav: NavigationState) => {
   if (nav.page === Page.Home) {
     return {
       ...defaults,
-      title: `${siteName} | 10th SSC Book Solutions, Digest & Question Answers`,
+      title: `${siteName} | Maharashtra Board Digest & Book Answers`,
     };
   }
 

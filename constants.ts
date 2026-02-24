@@ -14,7 +14,7 @@ export const CLASS_10_SUBJECTS: Subject[] = [
         subjectId: 'math',
         class: '10',
         datasetFile: 'algebra_maths_1.json',
-        imageUrl: '/covers/math-1.png',
+        imageUrl: '/covers/math-1.webp',
         solvedCount: '417 Questions',
         tag: 'Essential',
         chapters: [
@@ -40,7 +40,7 @@ export const CLASS_10_SUBJECTS: Subject[] = [
         subjectId: 'math',
         class: '10',
         datasetFile: 'geometry_maths_2.json',
-        imageUrl: '/covers/math-2.png',
+        imageUrl: '/covers/math-2.webp',
         solvedCount: '371 Questions',
         tag: 'Diagram Heavy',
         chapters: [
@@ -68,7 +68,7 @@ export const CLASS_10_SUBJECTS: Subject[] = [
         subjectId: 'science',
         class: '10',
         datasetFile: 'science_tech_1.json',
-        imageUrl: '/covers/sci-1.png',
+        imageUrl: '/covers/sci-1.webp',
         solvedCount: '250 Questions',
         tag: 'Conceptual',
         chapters: [
@@ -90,7 +90,7 @@ export const CLASS_10_SUBJECTS: Subject[] = [
         subjectId: 'science',
         class: '10',
         datasetFile: 'science_tech_2.json',
-        imageUrl: '/covers/sci-2.png',
+        imageUrl: '/covers/sci-2.webp',
         solvedCount: '253 Questions',
         tag: 'Biology Focus',
         chapters: [
@@ -121,7 +121,7 @@ export const CLASS_10_SUBJECTS: Subject[] = [
         subjectId: 'history',
         class: '10',
         datasetFile: 'history_political_science.json',
-        imageUrl: '/covers/hist-1.png',
+        imageUrl: '/covers/hist-1.webp',
         solvedCount: '150 Questions',
         tag: 'High Scoring',
         chapters: [
@@ -148,7 +148,7 @@ export const CLASS_10_SUBJECTS: Subject[] = [
         subjectId: 'geography',
         class: '10',
         datasetFile: 'geography.json',
-        imageUrl: '/covers/geo-1.png',
+        imageUrl: '/covers/geo-1.webp',
         solvedCount: '120 Questions',
         tag: 'Visual Guides',
         chapters: [
@@ -178,7 +178,7 @@ export const CLASS_10_SUBJECTS: Subject[] = [
         subjectId: 'english',
         class: '10',
         datasetFile: 'english.json',
-        imageUrl: '/covers/eng-1.png',
+        imageUrl: '/covers/eng-1.webp',
         solvedCount: 'Full Course',
         tag: 'SSC Standard',
         chapters: [
@@ -203,7 +203,7 @@ export const CLASS_10_SUBJECTS: Subject[] = [
         subjectId: 'marathi',
         class: '10',
         datasetFile: 'marathi_second_language.json',
-        imageUrl: '/covers/mar-1.png',
+        imageUrl: '/covers/mar-1.webp',
         solvedCount: 'Chapter-wise Q&A',
         tag: 'Balbharati',
         chapters: []
@@ -223,7 +223,7 @@ export const CLASS_10_SUBJECTS: Subject[] = [
         subjectId: 'hindi',
         class: '10',
         datasetFile: 'hindi_lokbharati.json',
-        imageUrl: '/covers/hin-1.png',
+        imageUrl: '/covers/hin-1.webp',
         solvedCount: 'Chapter-wise Q&A',
         tag: 'Lokbharati',
         chapters: []

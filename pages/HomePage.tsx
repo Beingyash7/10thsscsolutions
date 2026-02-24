@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page, Book } from '../types';
-import { CLASS_10_BOOKS } from '../constants';
+import { CLASS_10_BOOKS, CLASS_10_SUBJECTS } from '../constants';
 
 interface HomePageProps {
   onNavigate: (page: Page) => void;
@@ -166,6 +166,73 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onQuickViewBook }) => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Content Section */}
+      <section className="py-20 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10">
+            <div className="bg-slate-50 dark:bg-slate-900/50 rounded-[32px] p-8 md:p-10 border border-slate-100 dark:border-slate-800">
+              <h2 className="text-3xl md:text-4xl font-black mb-5 dark:text-white">
+                10th SSC Solutions, Digest & Book Solutions
+              </h2>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                10th SSC Solutions is a Maharashtra Board study website for chapter-wise textbook question answers, digest-style revision support, and subject-wise book solutions. Students can open Maths, Science, English, Hindi, Marathi, Geography, and History books and browse solved questions chapter by chapter.
+              </p>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                If you are searching for <strong>10th SSC solutions</strong>, <strong>10th SSC digest solutions</strong>, or <strong>10th SSC book solutions</strong>, use the Class 10 library to open the exact textbook and chapter page. The site is organized for faster revision before unit tests, prelims, and SSC board exams.
+              </p>
+              <div className="flex flex-wrap gap-3 mt-6">
+                <button
+                  onClick={() => onNavigate(Page.Class10)}
+                  className="px-5 py-3 rounded-2xl bg-indigo-600 text-white font-bold"
+                >
+                  Open 10th SSC Library
+                </button>
+                <a
+                  href="/10th-ssc-solutions"
+                  className="px-5 py-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold text-slate-800 dark:text-slate-200"
+                >
+                  Subject-wise Solutions
+                </a>
+              </div>
+            </div>
+
+            <aside className="space-y-6">
+              <div className="bg-white dark:bg-slate-900 rounded-[28px] p-6 border border-slate-100 dark:border-slate-800 shadow-sm">
+                <h3 className="text-xl font-black mb-4 dark:text-white">Top 10th SSC Solution Pages</h3>
+                <ul className="space-y-3 text-sm">
+                  {CLASS_10_BOOKS.slice(0, 8).map((book) => (
+                    <li key={book.id}>
+                      <a
+                        href={`/10th-ssc-solutions/${book.subjectId}/${book.id}`}
+                        className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
+                      >
+                        {book.title} 10th SSC Book Solutions
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 rounded-[28px] p-6 border border-slate-100 dark:border-slate-800 shadow-sm">
+                <h3 className="text-xl font-black mb-4 dark:text-white">Subject-wise Internal Links</h3>
+                <ul className="space-y-3 text-sm">
+                  {CLASS_10_SUBJECTS.map((subject) => (
+                    <li key={subject.id}>
+                      <a
+                        href={`/10th-ssc-solutions/${subject.id}`}
+                        className="text-slate-700 dark:text-slate-300 font-semibold hover:text-indigo-600 dark:hover:text-indigo-400"
+                      >
+                        {subject.title} 10th SSC Solutions
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
           </div>
         </div>
       </section>

@@ -20,7 +20,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <div className="bg-white p-2 rounded-xl">
                 <span className="material-symbols-outlined text-indigo-600 text-2xl">auto_stories</span>
               </div>
-              <span className="text-2xl font-black tracking-tight">Vibrant MS</span>
+              <span className="text-2xl font-black tracking-tight">10th SSC Solutions</span>
             </div>
             <p className="text-slate-400 text-lg leading-relaxed mb-8">
               Revolutionizing how Maharashtra Board students learn, one solution at a time. Playful, accurate, and totally free.
@@ -70,7 +70,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         {/* Bottom Bar */}
         <div className="border-t border-slate-800 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-slate-500 font-medium">© 2026 Vibrant Maharashtra Solutions. Educating with care.</p>
+          <p className="text-slate-500 font-medium">© 2026 10th SSC Solutions. Educating with care.</p>
           <div className="flex gap-8 text-slate-500 font-bold uppercase tracking-widest text-xs">
             <button className="hover:text-white transition-colors">Marathi</button>
             <button className="hover:text-white transition-colors">English</button>

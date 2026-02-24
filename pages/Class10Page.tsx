@@ -9,6 +9,7 @@ import {
 } from "../types";
 import { CLASS_10_SUBJECTS } from "../constants";
 import GeminiAssistant from "../components/GeminiAssistant";
+import { slugify } from "../routing";
 
 type ShaalaaOccurrence = {
   text?: string;
@@ -340,6 +341,14 @@ const Class10Page: React.FC<Class10PageProps> = ({
       </header>
 
       <main className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SeoSupportBlock
+          title="10th SSC Subject-wise Solutions and Digest Answers"
+          description="Browse subject-wise Maharashtra Board Class 10 textbook solutions, digest-style answers and chapter-wise question-answer pages. Open a subject to find the exact book and chapter you need for revision."
+          links={CLASS_10_SUBJECTS.map((subject) => ({
+            label: `${subject.title} 10th SSC Solutions`,
+            href: `/10th-ssc-solutions/${subject.id}`,
+          }))}
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {CLASS_10_SUBJECTS.map((s) => (
             <SubjectCard
@@ -394,6 +403,38 @@ const SubjectCard = ({
   </div>
 );
 
+const SeoSupportBlock = ({
+  title,
+  description,
+  links,
+}: {
+  title: string;
+  description: string;
+  links?: Array<{ label: string; href: string }>;
+}) => (
+  <section className="mb-10 rounded-[28px] border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 p-6 md:p-8">
+    <h2 className="text-2xl md:text-3xl font-black mb-3 dark:text-white">
+      {title}
+    </h2>
+    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+      {description}
+    </p>
+    {links && links.length > 0 ? (
+      <div className="flex flex-wrap gap-3">
+        {links.slice(0, 12).map((link) => (
+          <a
+            key={`${link.href}-${link.label}`}
+            href={link.href}
+            className="px-3 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    ) : null}
+  </section>
+);
+
 const BookSelectionView = ({
   subject,
   onBack,
@@ -417,6 +458,14 @@ const BookSelectionView = ({
     <p className="text-slate-500 mb-16 text-lg font-medium">
       Select a textbook to browse chapter solutions.
     </p>
+    <SeoSupportBlock
+      title={`${subject.title} 10th SSC Book Solutions`}
+      description={`${subject.title} Maharashtra Board Class 10 book solutions and digest answers are organized textbook-wise. Open a book below to access chapter-wise question-answer pages.`}
+      links={subject.books.map((book) => ({
+        label: `${book.title} Book Solutions`,
+        href: `/10th-ssc-solutions/${subject.id}/${book.id}`,
+      }))}
+    />
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
       {subject.books.length > 0 ? (
         subject.books.map((book) => (
@@ -505,6 +554,15 @@ const ChapterView = ({
       </div>
     </div>
 
+    <SeoSupportBlock
+      title={`${book.title} Chapter-wise 10th SSC Solutions`}
+      description={`${book.title} digest-style Maharashtra Board Class 10 solutions are available chapter-wise below. Open a chapter to read textbook question answers and revision-ready explanations.`}
+      links={book.chapters.map((chapter) => ({
+        label: `Chapter ${chapter.id}: ${chapter.title}`,
+        href: `/10th-ssc-solutions/${subject.id}/${book.id}/chapter-${chapter.id}-${slugify(chapter.title)}`,
+      }))}
+    />
+
     {isLoadingChapters && (
       <div className="mb-6 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800 px-4 py-3 text-sm font-semibold text-indigo-700 dark:text-indigo-300">
         Loading full chapter index from local dataset...
@@ -589,6 +647,21 @@ const ExerciseView = ({
         </span>
       </div>
     </div>
+
+    <SeoSupportBlock
+      title={`${book.title} ${chapter.title} Solutions`}
+      description={`Chapter ${chapter.id} (${chapter.title}) 10th SSC textbook solutions and digest answers. Open a practice set or all questions to read step-by-step answers for Maharashtra Board revision.`}
+      links={[
+        {
+          label: `${book.title} All Chapters`,
+          href: `/10th-ssc-solutions/${subject.id}/${book.id}`,
+        },
+        {
+          label: `${subject.title} Subject Solutions`,
+          href: `/10th-ssc-solutions/${subject.id}`,
+        },
+      ]}
+    />
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {chapter.exercises && chapter.exercises.length > 0 ? (
@@ -754,7 +827,7 @@ const SolutionsDetailView = ({
         Exercise List
       </button>
 
-      <div className="mb-12">
+    <div className="mb-12">
         <h2 className="text-4xl font-black mb-4 dark:text-white">
           {exercise.name} Solutions
         </h2>
@@ -768,6 +841,25 @@ const SolutionsDetailView = ({
           <p className="text-sm text-rose-600 mt-2 font-semibold">{error}</p>
         ) : null}
       </div>
+
+      <SeoSupportBlock
+        title={`${book.title} Chapter ${chapter.id} Question Answers`}
+        description={`This page contains ${book.title} chapter ${chapter.id} (${chapter.title}) 10th SSC solutions and digest-style question answers. Use the search box below to filter textbook questions inside the chapter.`}
+        links={[
+          {
+            label: `${book.title} Chapter List`,
+            href: `/10th-ssc-solutions/${subject.id}/${book.id}`,
+          },
+          {
+            label: `Chapter ${chapter.id} Page`,
+            href: `/10th-ssc-solutions/${subject.id}/${book.id}/chapter-${chapter.id}-${slugify(chapter.title)}`,
+          },
+          {
+            label: `${subject.title} Solutions`,
+            href: `/10th-ssc-solutions/${subject.id}`,
+          },
+        ]}
+      />
 
       {loading ? (
         <div className="space-y-8 animate-pulse">

@@ -255,7 +255,7 @@ const GeminiAssistant: React.FC<AssistantProps> = ({ context }) => {
           <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 flex justify-between items-center text-white">
             <div className="flex items-center gap-3">
               <span className="material-symbols-outlined">smart_toy</span>
-              <span className="font-bold">Vibrant Study Helper</span>
+              <span className="font-bold">10th SSC Helper</span>
             </div>
             <button
               onClick={() => setIsOpen(false)}

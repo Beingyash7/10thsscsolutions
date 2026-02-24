@@ -4,8 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "prerender:routes": "node scripts/prerender-routes.mjs",
+    "prebuild": "npm run sitemap",
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "npm run prerender:routes",
     "preview": "vite preview"
   },
   "dependencies": {

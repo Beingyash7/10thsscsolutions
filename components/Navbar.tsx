@@ -22,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, isDarkMode, to
             <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-2xl shadow-lg group-hover:rotate-6 transition-transform">
               <span className="material-symbols-outlined text-white text-2xl">menu_book</span>
             </div>
-            <span className="text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">Vibrant MS</span>
+            <span className="text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">10th SSC Solutions</span>
           </div>
 
           {/* Desktop Nav */}

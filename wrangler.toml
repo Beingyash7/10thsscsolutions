@@ -1,0 +1,7 @@
+name = "10thsscsolutions"
+compatibility_date = "2026-02-24"
+pages_build_output_dir = "dist"
+
+[vars]
+# Replace in Cloudflare Pages dashboard with your final domain after custom domain setup.
+SITE_URL = "https://10thsscsolutions.pages.dev"

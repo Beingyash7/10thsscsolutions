@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vibrant-ms.pages.dev/sitemap.xml
+Sitemap: https://10thsscsolutions.pages.dev/sitemap.xml

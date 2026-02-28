@@ -156,7 +156,7 @@ export const getCanonicalUrl = (nav: NavigationState): string => {
   const origin =
     typeof window !== 'undefined' && window.location?.origin
       ? window.location.origin
-      : 'https://vibrant-ms.pages.dev';
+      : (import.meta.env.SITE_URL || 'https://10thsscsolutions.pages.dev');
   return `${origin}${navToPath(nav)}`;
 };
 

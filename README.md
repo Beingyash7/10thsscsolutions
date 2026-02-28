@@ -6,7 +6,7 @@ A React + Vite website for Maharashtra Board (SSC) textbook question-answer solu
 
 - Class 10 subject -> book -> chapter -> question/answer navigation
 - Local Q&A datasets (no backend required)
-- Dynamic chapter extraction from Shaalaa JSON (including Hindi and Marathi books)
+- Dynamic chapter extraction from local JSON datasets (including Hindi and Marathi books)
 - In-page chapter search and load-more for large question sets
 - Class 8 and Class 9 study hub pages
 - Static-host deployable (Netlify / Vercel / Cloudflare Pages)
@@ -71,5 +71,6 @@ Before submitting to Google Search Console / AdSense:
 ## Data Source Notes
 
 - The app reads local JSON files in `public/shaalaa/`.
-- Chapter grouping is generated from Shaalaa URL metadata inside each item.
+- Chapter grouping is generated from textbook URL metadata inside each item.
 - Exercise-level grouping is not always present in the source data; some exercise pages show full chapter question-answer lists.
+

@@ -1,34 +1,37 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { formatSolution } from '../utils/formatSolution.js';
 
 const ROOT = process.cwd();
 const DIST_DIR = path.join(ROOT, 'dist');
 const DIST_INDEX = path.join(DIST_DIR, 'index.html');
 const SITEMAP_PATH = path.join(ROOT, 'public', 'sitemap.xml');
-const DEFAULT_ORIGIN = process.env.SITE_URL || 'https://vibrant-ms.pages.dev';
+const DATA_DIR = path.join(ROOT, 'public', 'shaalaa');
+const DEFAULT_ORIGIN = (process.env.SITE_URL || 'https://10thsscsolutions.pages.dev').replace(/\/+$/, '');
 
-if (!fs.existsSync(DIST_INDEX)) {
-  console.error('dist/index.html not found. Run build first.');
-  process.exit(1);
-}
-
-if (!fs.existsSync(SITEMAP_PATH)) {
-  console.error('public/sitemap.xml not found. Run sitemap generation first.');
-  process.exit(1);
-}
-
-const baseHtml = fs.readFileSync(DIST_INDEX, 'utf8');
-const sitemapXml = fs.readFileSync(SITEMAP_PATH, 'utf8');
-
-const subjectNames = {
-  math: 'Mathematics',
-  science: 'Science & Tech',
-  history: 'History & Civics',
-  geography: 'Geography',
-  english: 'English',
-  hindi: 'Hindi',
-  marathi: 'Marathi',
+const BOOK_DATASET_MAP = {
+  'math/math-1': 'algebra_maths_1.json',
+  'math/math-2': 'geometry_maths_2.json',
+  'science/sci-1': 'science_tech_1.json',
+  'science/sci-2': 'science_tech_2.json',
+  'history/hist-1': 'history_political_science.json',
+  'geography/geo-1': 'geography.json',
+  'english/eng-1': 'english.json',
+  'hindi/hin-1': 'hindi_lokbharati.json',
+  'marathi/mar-1': 'marathi_second_language.json',
 };
+
+const SUBJECTS = [
+  { id: 'math', name: 'Mathematics' },
+  { id: 'science', name: 'Science & Tech' },
+  { id: 'history', name: 'History & Civics' },
+  { id: 'geography', name: 'Geography' },
+  { id: 'english', name: 'English' },
+  { id: 'hindi', name: 'Hindi' },
+  { id: 'marathi', name: 'Marathi' },
+];
+
+const subjectNames = Object.fromEntries(SUBJECTS.map((s) => [s.id, s.name]));
 
 const bookNames = {
   'math-1': 'Algebra (Math 1)',
@@ -42,12 +45,30 @@ const bookNames = {
   'mar-1': 'Marathi (Second Language)',
 };
 
+if (!fs.existsSync(DIST_INDEX)) {
+  console.error('dist/index.html not found. Run build first.');
+  process.exit(1);
+}
+
+if (!fs.existsSync(SITEMAP_PATH)) {
+  console.error('public/sitemap.xml not found. Run sitemap generation first.');
+  process.exit(1);
+}
+
 const titleCase = (slug) =>
   String(slug || '')
     .split('-')
     .filter(Boolean)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
+
+const slugify = (value) =>
+  String(value || '')
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-{2,}/g, '-');
 
 const escapeHtml = (value) =>
   String(value ?? '')
@@ -56,6 +77,8 @@ const escapeHtml = (value) =>
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+
+const escapeAttr = (value) => escapeHtml(String(value ?? ''));
 
 const parsePathContext = (pathname) => {
   const trimmed = pathname.replace(/^\/+|\/+$/g, '');
@@ -156,85 +179,154 @@ const getMetaForPath = (pathname) => {
 
   return {
     title: `${siteName} | Maharashtra Board Solutions`,
-    description:
-      'Maharashtra Board question answers and 10th SSC digest-style book solutions.',
+    description: 'Maharashtra Board question answers and 10th SSC digest-style book solutions.',
   };
 };
 
-const locMatches = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)];
-const allPaths = locMatches
-  .map((match) => {
-    try {
-      return new URL(match[1]).pathname;
-    } catch {
-      return null;
-    }
-  })
-  .filter(Boolean)
-  .filter((pathname) => !/\.(xml|txt|json|webmanifest)$/i.test(pathname));
+const datasetItemsCache = new Map();
+const chapterIndexCache = new Map();
 
-const getRelatedLinks = (pathname, limit = 8) => {
-  const ctx = parsePathContext(pathname);
+const chapterMatchFromUrl = (value) => String(value || '').toLowerCase().match(/-chapter-(\d+)-([^_#]+)/);
 
-  if (ctx.type === 'subject') {
-    return allPaths
-      .filter((p) => p.startsWith(`/10th-ssc-solutions/${ctx.subjectId}/`) && p.split('/').length === 4)
-      .slice(0, limit);
+const readDatasetItems = (subjectId, bookId) => {
+  const bookKey = `${subjectId}/${bookId}`;
+  const fileName = BOOK_DATASET_MAP[bookKey];
+  if (!fileName) return [];
+  if (datasetItemsCache.has(fileName)) return datasetItemsCache.get(fileName);
+
+  const fullPath = path.join(DATA_DIR, fileName);
+  if (!fs.existsSync(fullPath)) {
+    datasetItemsCache.set(fileName, []);
+    return [];
   }
 
-  if (ctx.type === 'book') {
-    return allPaths
-      .filter((p) => p.startsWith(`/10th-ssc-solutions/${ctx.subjectId}/${ctx.bookId}/chapter-`))
-      .slice(0, limit);
+  try {
+    const parsed = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+    const items = Array.isArray(parsed?.items) ? parsed.items : [];
+    datasetItemsCache.set(fileName, items);
+    return items;
+  } catch (error) {
+    console.error(`Failed reading ${fileName}:`, error.message);
+    datasetItemsCache.set(fileName, []);
+    return [];
   }
-
-  if (ctx.type === 'chapter') {
-    const siblings = allPaths.filter(
-      (p) =>
-        p.startsWith(`/10th-ssc-solutions/${ctx.subjectId}/${ctx.bookId}/chapter-`) &&
-        p !== pathname,
-    );
-    const parents = [
-      `/10th-ssc-solutions/${ctx.subjectId}`,
-      `/10th-ssc-solutions/${ctx.subjectId}/${ctx.bookId}`,
-    ];
-    return [...parents, ...siblings.slice(0, Math.max(0, limit - parents.length))];
-  }
-
-  if (ctx.type === 'class10') {
-    return allPaths
-      .filter((p) => p.startsWith('/10th-ssc-solutions/') && p.split('/').length === 3)
-      .slice(0, limit);
-  }
-
-  if (ctx.type === 'home') {
-    return [
-      '/10th-ssc-solutions',
-      '/10th-ssc-solutions/math/math-1',
-      '/10th-ssc-solutions/math/math-2',
-      '/10th-ssc-solutions/science/sci-1',
-      '/10th-ssc-solutions/science/sci-2',
-      '/10th-ssc-solutions/english/eng-1',
-      '/10th-ssc-solutions/hindi/hin-1',
-      '/10th-ssc-solutions/marathi/mar-1',
-    ].filter((p) => allPaths.includes(p));
-  }
-
-  return [];
 };
 
-const getAnchorText = (pathname) => {
-  const ctx = parsePathContext(pathname);
-  if (ctx.type === 'subject') return `${ctx.subjectName} 10th SSC Solutions`;
-  if (ctx.type === 'book') return `${ctx.bookName} Book Solutions`;
-  if (ctx.type === 'chapter') {
-    return `${ctx.bookName} Chapter ${ctx.chapterNo} ${ctx.chapterTitle} Solutions`;
+const getBookChapters = (subjectId, bookId) => {
+  const cacheKey = `${subjectId}/${bookId}`;
+  if (chapterIndexCache.has(cacheKey)) return chapterIndexCache.get(cacheKey);
+
+  const map = new Map();
+  const items = readDatasetItems(subjectId, bookId);
+
+  for (const item of items) {
+    for (const occurrence of item?.appears_in || []) {
+      const match = chapterMatchFromUrl(occurrence?.url);
+      if (!match) continue;
+      const chapterNo = Number(match[1]);
+      const chapterSlug = match[2];
+      if (!Number.isFinite(chapterNo)) continue;
+      if (!map.has(chapterNo)) {
+        map.set(chapterNo, {
+          number: chapterNo,
+          slug: slugify(chapterSlug),
+          title: titleCase(chapterSlug),
+        });
+      }
+    }
   }
-  if (ctx.type === 'class10') return '10th SSC Subject Solutions';
-  if (ctx.type === 'class8') return 'Class 8 Study Hub';
-  if (ctx.type === 'class9') return 'Class 9 Study Hub';
-  if (ctx.type === 'home') return 'Home';
-  return pathname;
+
+  const chapters = [...map.values()].sort((a, b) => a.number - b.number);
+  chapterIndexCache.set(cacheKey, chapters);
+  return chapters;
+};
+
+const getChapterItems = (ctx) => {
+  const chapterNo = Number(ctx.chapterNo);
+  if (!Number.isFinite(chapterNo)) return [];
+
+  const items = readDatasetItems(ctx.subjectId, ctx.bookId);
+  const seen = new Set();
+
+  return items
+    .filter((item) =>
+      Array.isArray(item?.appears_in) &&
+      item.appears_in.some((entry) => {
+        const match = chapterMatchFromUrl(entry?.url);
+        return match && Number(match[1]) === chapterNo;
+      }),
+    )
+    .map((item) => ({
+      question: String(item?.question || '').trim() || String(item?.title || '').trim() || 'Question unavailable',
+      answerHtml: String(item?.solution_html || item?.solution_text || '').trim(),
+    }))
+    .filter((row) => {
+      const key = `${row.question}__${row.answerHtml}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+};
+
+const buildBookClusterSection = (ctx) => {
+  const chapters = getBookChapters(ctx.subjectId, ctx.bookId);
+  const chapterLinks = chapters
+    .map((chapter) => {
+      const href = `/10th-ssc-solutions/${ctx.subjectId}/${ctx.bookId}/chapter-${chapter.number}-${chapter.slug}`;
+      const anchor = `Chapter ${chapter.number} ${chapter.title} - 10th SSC ${ctx.subjectName} Solutions`;
+      return `<li><a href="${href}">${escapeHtml(anchor)}</a></li>`;
+    })
+    .join('');
+
+  return `
+<section class="book-content" style="max-width:1000px;margin:24px auto;padding:20px 24px;border:1px solid #e2e8f0;border-radius:16px;background:#ffffff;color:#0f172a;line-height:1.6">
+  <h1>${escapeHtml(`${ctx.bookName} Chapter-wise Solutions`)}</h1>
+  <p>${escapeHtml(`Browse all chapters for ${ctx.bookName}.`)}</p>
+  <ul>${chapterLinks || '<li>Chapter links are being updated.</li>'}</ul>
+</section>`;
+};
+
+const buildChapterClusterSection = (ctx, chapterItems) => {
+  const chapters = getBookChapters(ctx.subjectId, ctx.bookId);
+  const currentNo = Number(ctx.chapterNo);
+  const currentIndex = chapters.findIndex((chapter) => chapter.number === currentNo);
+  const previous = currentIndex > 0 ? chapters[currentIndex - 1] : null;
+  const next = currentIndex >= 0 && currentIndex < chapters.length - 1 ? chapters[currentIndex + 1] : null;
+
+  const prevLink = previous
+    ? `<a href="/10th-ssc-solutions/${ctx.subjectId}/${ctx.bookId}/chapter-${previous.number}-${previous.slug}">Previous Chapter: ${escapeHtml(`Chapter ${previous.number} ${previous.title}`)}</a>`
+    : '<span>Previous Chapter: Not available</span>';
+
+  const nextLink = next
+    ? `<a href="/10th-ssc-solutions/${ctx.subjectId}/${ctx.bookId}/chapter-${next.number}-${next.slug}">Next Chapter: ${escapeHtml(`Chapter ${next.number} ${next.title}`)}</a>`
+    : '<span>Next Chapter: Not available</span>';
+
+  const otherSubjectsLinks = SUBJECTS
+    .filter((subject) => subject.id !== ctx.subjectId)
+    .map((subject) => `<li><a href="/10th-ssc-solutions/${subject.id}">${escapeHtml(`${subject.name} 10th SSC Solutions`)}</a></li>`)
+    .join('');
+
+  const articles = chapterItems.length
+    ? chapterItems
+        .map(
+          (item, index) => `
+  <article class="qa">
+    <h2 class="q-title"><span class="q-num">Q${index + 1}.</span> ${escapeHtml(item.question)}</h2>
+    <div class="a-body">${formatSolution(item.question, item.answerHtml).formattedAnswerHtml}</div>
+  </article>`,
+        )
+        .join('')
+    : '\n  <p><em>Chapter questions are being updated.</em></p>';
+
+  return `
+<section class="chapter-content" style="max-width:1000px;margin:24px auto;padding:20px 24px;border:1px solid #e2e8f0;border-radius:16px;background:#ffffff;color:#0f172a;line-height:1.6">
+  <h1>${escapeHtml(`${ctx.bookName} Chapter ${ctx.chapterNo} ${ctx.chapterTitle} Solutions`)}</h1>${articles}
+  <nav class="chapter-links" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:20px">${prevLink}<a href="/10th-ssc-solutions/${ctx.subjectId}/${ctx.bookId}">All Chapters: ${escapeHtml(ctx.bookName)}</a>${nextLink}</nav>
+  <section class="other-subjects" style="margin-top:20px">
+    <h2>Other Subjects</h2>
+    <ul>${otherSubjectsLinks}</ul>
+  </section>
+</section>`;
 };
 
 const buildBreadcrumbs = (pathname) => {
@@ -248,214 +340,115 @@ const buildBreadcrumbs = (pathname) => {
     crumbs.push({ name: ctx.subjectName, path: pathname });
   } else if (ctx.type === 'book') {
     crumbs.push({ name: '10th SSC Solutions', path: '/10th-ssc-solutions' });
-    crumbs.push({
-      name: ctx.subjectName,
-      path: `/10th-ssc-solutions/${ctx.subjectId}`,
-    });
+    crumbs.push({ name: ctx.subjectName, path: `/10th-ssc-solutions/${ctx.subjectId}` });
     crumbs.push({ name: ctx.bookName, path: pathname });
   } else if (ctx.type === 'chapter') {
     crumbs.push({ name: '10th SSC Solutions', path: '/10th-ssc-solutions' });
-    crumbs.push({
-      name: ctx.subjectName,
-      path: `/10th-ssc-solutions/${ctx.subjectId}`,
-    });
-    crumbs.push({
-      name: ctx.bookName,
-      path: `/10th-ssc-solutions/${ctx.subjectId}/${ctx.bookId}`,
-    });
-    crumbs.push({
-      name: `Chapter ${ctx.chapterNo}: ${ctx.chapterTitle}`,
-      path: pathname,
-    });
+    crumbs.push({ name: ctx.subjectName, path: `/10th-ssc-solutions/${ctx.subjectId}` });
+    crumbs.push({ name: ctx.bookName, path: `/10th-ssc-solutions/${ctx.subjectId}/${ctx.bookId}` });
+    crumbs.push({ name: `Chapter ${ctx.chapterNo}: ${ctx.chapterTitle}`, path: pathname });
   }
 
   return crumbs;
 };
 
-const buildSeoContentBlock = (pathname) => {
-  const ctx = parsePathContext(pathname);
-  const related = getRelatedLinks(pathname, 10);
-  const meta = getMetaForPath(pathname);
-  const canonical = `${DEFAULT_ORIGIN}${pathname}`;
-  const breadcrumbs = buildBreadcrumbs(pathname);
-
-  let heading = '10th SSC Solutions';
-  let intro =
-    'Find Maharashtra Board textbook question answers, digest-style explanations, and chapter-wise 10th SSC book solutions.';
-
-  if (ctx.type === 'subject') {
-    heading = `${ctx.subjectName} 10th SSC Solutions`;
-    intro = `${ctx.subjectName} Maharashtra Board Class 10 textbook solutions, digest answers, and chapter-wise question-answer support. Browse books and open chapter pages for full solutions.`;
-  } else if (ctx.type === 'book') {
-    heading = `${ctx.bookName} 10th SSC Book Solutions`;
-    intro = `${ctx.bookName} chapter-wise 10th SSC solutions and digest answers for Maharashtra Board students. Open any chapter to read textbook question answers and explanations.`;
-  } else if (ctx.type === 'chapter') {
-    heading = `${ctx.bookName} Chapter ${ctx.chapterNo} Solutions`;
-    intro = `Chapter ${ctx.chapterNo} (${ctx.chapterTitle}) 10th SSC digest and textbook solutions page for Maharashtra Board students. Use the page app below to browse solved questions and answers.`;
-  } else if (ctx.type === 'class10') {
-    heading = '10th SSC Subject-wise Book Solutions';
-    intro = 'Browse subject-wise Maharashtra Board Class 10 textbook solutions, including Maths, Science, Geography, History, English, Hindi, and Marathi.';
-  }
-
-  const breadcrumbHtml = breadcrumbs
-    .map((crumb, index) => {
-      const isLast = index === breadcrumbs.length - 1;
-      if (isLast) return `<span>${escapeHtml(crumb.name)}</span>`;
-      return `<a href="${crumb.path}">${escapeHtml(crumb.name)}</a>`;
-    })
-    .join(' <span aria-hidden="true">›</span> ');
-
-  const linksHtml = related.length
-    ? `<h2>Related 10th SSC Solution Pages</h2>
-       <ul>${related
-         .map(
-           (linkPath) =>
-             `<li><a href="${linkPath}">${escapeHtml(getAnchorText(linkPath))}</a></li>`,
-         )
-         .join('')}</ul>`
-    : '';
-
-  const faqHtml =
-    ctx.type === 'book' || ctx.type === 'chapter'
-      ? `<h2>Common Questions</h2>
-         <dl>
-           <dt>Are these 10th SSC digest and book solutions chapter-wise?</dt>
-           <dd>Yes. This route is organized for chapter-wise Maharashtra Board textbook question answers and book solutions.</dd>
-           <dt>Can I use these solutions for revision before exams?</dt>
-           <dd>Yes. Use them for quick revision, concept checking, and practice. Always cross-check with your textbook and teacher guidance for final preparation.</dd>
-         </dl>`
-      : '';
-
-  return `
-<section id="prerender-seo-content" style="max-width:1000px;margin:24px auto;padding:20px 24px;border:1px solid #e2e8f0;border-radius:16px;background:#ffffff;color:#0f172a;font-family:system-ui,sans-serif;line-height:1.55">
-  <nav aria-label="Breadcrumb" style="font-size:14px;margin-bottom:10px;color:#475569">${breadcrumbHtml}</nav>
-  <h1 style="font-size:28px;line-height:1.2;margin:0 0 10px 0">${escapeHtml(heading)}</h1>
-  <p style="margin:0 0 14px 0;color:#334155">${escapeHtml(intro)}</p>
-  <p style="margin:0 0 14px 0;color:#64748b;font-size:14px">SEO route URL: <a href="${pathname}">${escapeHtml(canonical)}</a></p>
-  ${linksHtml}
-  ${faqHtml}
-</section>
-<script>window.addEventListener('load',function(){var n=document.getElementById('prerender-seo-content');if(n){n.remove();}});</script>
-`;
-};
-
-const buildStructuredData = (pathname) => {
+const buildStructuredData = (pathname, chapterItems = []) => {
   const meta = getMetaForPath(pathname);
   const canonical = `${DEFAULT_ORIGIN}${pathname}`;
   const breadcrumbs = buildBreadcrumbs(pathname);
   const ctx = parsePathContext(pathname);
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: breadcrumbs.map((crumb, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: crumb.name,
-      item: `${DEFAULT_ORIGIN}${crumb.path}`,
-    })),
-  };
-
-  const webPageSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: meta.title,
-    description: meta.description,
-    url: canonical,
-    inLanguage: 'en-IN',
-    isPartOf: {
-      '@type': 'WebSite',
-      name: '10th SSC Solutions',
-      url: DEFAULT_ORIGIN,
+  const schemas = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.name,
+        item: `${DEFAULT_ORIGIN}${crumb.path}`,
+      })),
     },
-  };
+  ];
 
-  const schemas = [breadcrumbSchema, webPageSchema];
-
-  if (ctx.type === 'book' || ctx.type === 'chapter') {
+  if (ctx.type === 'chapter') {
     schemas.push({
       '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Are these 10th SSC digest and book solutions chapter-wise?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. This page is part of a chapter-wise Maharashtra Board Class 10 textbook solutions and digest answer library.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I use these solutions for exam revision?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. Use these textbook question answers for revision and concept review, and cross-check with your textbook and teacher guidance.',
-          },
-        },
-      ],
+      '@type': 'Article',
+      headline: meta.title,
+      description: meta.description,
+      url: canonical,
+      mainEntityOfPage: canonical,
+      author: { '@type': 'Organization', name: '10th SSC Solutions' },
+      publisher: { '@type': 'Organization', name: '10th SSC Solutions', url: DEFAULT_ORIGIN },
+    });
+
+    const questionItems = chapterItems.slice(0, 20).map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: `Q${index + 1}. ${item.question}`,
+      url: canonical,
+    }));
+
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      itemListElement: questionItems,
     });
   }
 
   return schemas
-    .map(
-      (schema) =>
-        `<script type="application/ld+json">${JSON.stringify(schema)}</script>`,
-    )
+    .map((schema) => `<script type="application/ld+json">${JSON.stringify(schema)}</script>`)
     .join('\n');
 };
 
 const updateHtmlMeta = (html, pathname) => {
   const meta = getMetaForPath(pathname);
   const canonical = `${DEFAULT_ORIGIN}${pathname}`;
+  const ctx = parsePathContext(pathname);
+  const chapterItems = ctx.type === 'chapter' ? getChapterItems(ctx) : [];
 
   let next = html;
-  next = next.replace(/<title>[\s\S]*?<\/title>/i, `<title>${meta.title}</title>`);
-  next = next.replace(
-    /<meta[^>]*name="description"[^>]*content="[^"]*"[^>]*\/?>/i,
-    `<meta name="description" content="${meta.description}" />`,
-  );
-  next = next.replace(
-    /<meta[^>]*property="og:title"[^>]*content="[^"]*"[^>]*\/?>/i,
-    `<meta property="og:title" content="${meta.title}" />`,
-  );
-  next = next.replace(
-    /<meta[^>]*property="og:description"[^>]*content="[^"]*"[^>]*\/?>/i,
-    `<meta property="og:description" content="${meta.description}" />`,
-  );
-  next = next.replace(
-    /<meta[^>]*name="twitter:title"[^>]*content="[^"]*"[^>]*\/?>/i,
-    `<meta name="twitter:title" content="${meta.title}" />`,
-  );
-  next = next.replace(
-    /<meta[^>]*name="twitter:description"[^>]*content="[^"]*"[^>]*\/?>/i,
-    `<meta name="twitter:description" content="${meta.description}" />`,
-  );
-  next = next.replace(
-    /<meta[^>]*property="og:url"[^>]*content="[^"]*"[^>]*\/?>/i,
-    `<meta property="og:url" content="${canonical}" />`,
-  );
-  next = next.replace(
-    /<link[^>]*rel="canonical"[^>]*href="[^"]*"[^>]*\/?>/i,
-    `<link rel="canonical" href="${canonical}" />`,
-  );
+  next = next.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(meta.title)}</title>`);
+  next = next.replace(/<meta[^>]*name="description"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="description" content="${escapeAttr(meta.description)}" />`);
+  next = next.replace(/<meta[^>]*property="og:title"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:title" content="${escapeAttr(meta.title)}" />`);
+  next = next.replace(/<meta[^>]*property="og:description"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:description" content="${escapeAttr(meta.description)}" />`);
+  next = next.replace(/<meta[^>]*name="twitter:title"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="twitter:title" content="${escapeAttr(meta.title)}" />`);
+  next = next.replace(/<meta[^>]*name="twitter:description"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="twitter:description" content="${escapeAttr(meta.description)}" />`);
+  next = next.replace(/<meta[^>]*property="og:url"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:url" content="${escapeAttr(canonical)}" />`);
+  next = next.replace(/<link[^>]*rel="canonical"[^>]*href="[^"]*"[^>]*\/?>/i, `<link rel="canonical" href="${escapeAttr(canonical)}" />`);
 
   if (pathname !== '/' && !pathname.endsWith('.html')) {
-    next = next.replace(
-      /<\/head>/i,
-      `${buildStructuredData(pathname)}\n</head>`,
-    );
-    next = next.replace(
-      /<div id="root"><\/div>/i,
-      `${buildSeoContentBlock(pathname)}\n    <div id="root"></div>`,
-    );
+    next = next.replace(/<\/head>/i, `${buildStructuredData(pathname, chapterItems)}\n</head>`);
+
+    if (ctx.type === 'chapter') {
+      next = next.replace(/<div id="root"><\/div>/i, `${buildChapterClusterSection(ctx, chapterItems)}\n    <div id="root"></div>`);
+    }
+
+    if (ctx.type === 'book') {
+      next = next.replace(/<div id="root"><\/div>/i, `${buildBookClusterSection(ctx)}\n    <div id="root"></div>`);
+    }
   }
 
   return next;
 };
 
-let generated = 0;
+const sitemapXml = fs.readFileSync(SITEMAP_PATH, 'utf8');
+const locMatches = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)];
+const allPaths = locMatches
+  .map((match) => {
+    try {
+      return new URL(match[1]).pathname;
+    } catch {
+      return null;
+    }
+  })
+  .filter(Boolean)
+  .filter((pathname) => !/\.(xml|txt|json|webmanifest)$/i.test(pathname));
 
+const baseHtml = fs.readFileSync(DIST_INDEX, 'utf8').replaceAll('__SITE_URL__', DEFAULT_ORIGIN);
+
+let generated = 0;
 for (const pathname of allPaths) {
   const html = updateHtmlMeta(baseHtml, pathname);
   if (pathname === '/') {
@@ -473,3 +466,4 @@ for (const pathname of allPaths) {
 }
 
 console.log(`Pre-rendered ${generated} route shells in dist/`);
+

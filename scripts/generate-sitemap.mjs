@@ -1,9 +1,10 @@
-import fs from 'node:fs';
+﻿import fs from 'node:fs';
 import path from 'node:path';
 
-const SITE_URL = process.env.SITE_URL || 'https://vibrant-ms.pages.dev';
+const SITE_URL = (process.env.SITE_URL || 'https://10thsscsolutions.pages.dev').replace(/\/+$/, '');
 const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
+const SHAALAA_DIR = path.join(PUBLIC_DIR, 'shaalaa');
 
 const BOOKS = [
   { subjectId: 'math', bookId: 'math-1', file: 'algebra_maths_1.json' },
@@ -25,87 +26,107 @@ const slugify = (value) =>
     .replace(/^-+|-+$/g, '')
     .replace(/-{2,}/g, '-');
 
-const chapterTitleFromSlug = (slug) =>
-  slug
+const titleFromSlug = (slug) =>
+  String(slug || '')
     .split('-')
     .filter(Boolean)
-    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
 
-const extractChapters = (items) => {
-  const map = new Map();
+const isoDate = (value) => new Date(value).toISOString().slice(0, 10);
+const today = isoDate(Date.now());
 
+const fileLastmod = (filePath) => {
+  try {
+    return isoDate(fs.statSync(filePath).mtimeMs);
+  } catch {
+    return today;
+  }
+};
+
+const extractChapters = (items) => {
+  const chapterMap = new Map();
   for (const item of items || []) {
-    for (const occurrence of item.appears_in || []) {
-      const url = String(occurrence.url || '').toLowerCase();
-      if (!url.includes('/textbook-solutions/c/')) continue;
+    for (const occurrence of item?.appears_in || []) {
+      const url = String(occurrence?.url || '').toLowerCase();
       const match = url.match(/-chapter-(\d+)-([^_#]+)/);
       if (!match) continue;
-
-      const id = Number(match[1]);
-      const slug = match[2];
-      if (!Number.isFinite(id)) continue;
-      if (!map.has(id)) {
-        map.set(id, chapterTitleFromSlug(slug));
+      const chapterNo = Number(match[1]);
+      const chapterSlug = match[2];
+      if (!Number.isFinite(chapterNo)) continue;
+      if (!chapterMap.has(chapterNo)) {
+        chapterMap.set(chapterNo, { id: chapterNo, title: titleFromSlug(chapterSlug) });
       }
     }
   }
 
-  return [...map.entries()]
-    .sort((a, b) => a[0] - b[0])
-    .map(([id, title]) => ({ id, title }));
+  return [...chapterMap.values()].sort((a, b) => a.id - b.id);
 };
 
 const urls = new Map();
-const today = new Date().toISOString().slice(0, 10);
-const addUrl = (
-  pathname,
-  changefreq = 'weekly',
-  priority = '0.7',
-  lastmod = today,
-) => {
-  urls.set(pathname, { changefreq, priority, lastmod });
+const addUrl = (pathname, changefreq, priority, lastmod) => {
+  urls.set(pathname, {
+    changefreq: changefreq || 'weekly',
+    priority: priority || '0.7',
+    lastmod: lastmod || today,
+  });
 };
 
-addUrl('/', 'daily', '1.0');
-addUrl('/class-8', 'weekly', '0.6');
-addUrl('/class-9', 'weekly', '0.6');
-addUrl('/class-10', 'weekly', '0.7');
-addUrl('/10th-ssc-solutions', 'daily', '0.9');
-addUrl('/about.html', 'monthly', '0.4');
-addUrl('/contact.html', 'monthly', '0.4');
-addUrl('/privacy-policy.html', 'yearly', '0.3');
-addUrl('/terms.html', 'yearly', '0.3');
+const subjectLastmods = new Map();
+let overallLastmod = today;
+
+addUrl('/class-8', 'weekly', '0.6', today);
+addUrl('/class-9', 'weekly', '0.6', today);
+addUrl('/class-10', 'weekly', '0.7', today);
+addUrl('/10th-ssc-solutions', 'daily', '0.9', today);
+addUrl('/about.html', 'monthly', '0.4', today);
+addUrl('/contact.html', 'monthly', '0.4', today);
+addUrl('/privacy-policy.html', 'yearly', '0.3', today);
+addUrl('/terms.html', 'yearly', '0.3', today);
 
 for (const book of BOOKS) {
+  const filePath = path.join(SHAALAA_DIR, book.file);
+  const lastmod = fileLastmod(filePath);
+  if (lastmod > overallLastmod) overallLastmod = lastmod;
+
   const subjectPath = `/10th-ssc-solutions/${book.subjectId}`;
   const bookPath = `${subjectPath}/${book.bookId}`;
-  addUrl(subjectPath, 'weekly', '0.8');
-  addUrl(bookPath, 'daily', '0.9');
 
-  const filePath = path.join(PUBLIC_DIR, 'shaalaa', book.file);
+  const prevSubjectDate = subjectLastmods.get(book.subjectId);
+  if (!prevSubjectDate || lastmod > prevSubjectDate) {
+    subjectLastmods.set(book.subjectId, lastmod);
+  }
+
+  addUrl(bookPath, 'daily', '0.9', lastmod);
+
   if (!fs.existsSync(filePath)) continue;
 
   try {
-    const raw = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    const chapters = extractChapters(raw.items || []);
+    const parsed = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const chapters = extractChapters(parsed?.items || []);
     for (const chapter of chapters) {
-      addUrl(
-        `${bookPath}/chapter-${chapter.id}-${slugify(chapter.title)}`,
-        'daily',
-        '0.8',
-      );
+      addUrl(`${bookPath}/chapter-${chapter.id}-${slugify(chapter.title)}`, 'daily', '0.8', lastmod);
     }
   } catch (error) {
     console.error(`Failed to parse ${book.file}:`, error.message);
   }
 }
 
-const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[
-  ...urls.entries(),
-]
-  .map(([pathname, meta]) => `  <url>\n    <loc>${SITE_URL}${pathname}</loc>\n    <lastmod>${meta.lastmod}</lastmod>\n    <changefreq>${meta.changefreq}</changefreq>\n    <priority>${meta.priority}</priority>\n  </url>`)
-  .join('\n')}\n</urlset>\n`;
+for (const [subjectId, lastmod] of subjectLastmods.entries()) {
+  addUrl(`/10th-ssc-solutions/${subjectId}`, 'weekly', '0.8', lastmod);
+}
+
+addUrl('/', 'daily', '1.0', overallLastmod);
+
+const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${
+  [...urls.entries()]
+    .map(
+      ([pathname, meta]) =>
+        `  <url>\n    <loc>${SITE_URL}${pathname}</loc>\n    <lastmod>${meta.lastmod}</lastmod>\n    <changefreq>${meta.changefreq}</changefreq>\n    <priority>${meta.priority}</priority>\n  </url>`,
+    )
+    .join('\n')
+}\n</urlset>\n`;
 
 fs.writeFileSync(path.join(PUBLIC_DIR, 'sitemap.xml'), xml, 'utf8');
 console.log(`Sitemap generated with ${urls.size} URLs -> public/sitemap.xml`);
+

@@ -10,26 +10,28 @@ import {
 import { CLASS_10_SUBJECTS } from "../constants";
 import GeminiAssistant from "../components/GeminiAssistant";
 import { slugify } from "../routing";
+import { formatSolution, toPlainText } from "../src/utils/formatSolution";
 
-type ShaalaaOccurrence = {
+type DatasetOccurrence = {
   text?: string;
   url?: string;
 };
 
-type ShaalaaItem = {
+type DatasetItem = {
   question?: string;
   solution_text?: string;
   solution_html?: string;
-  appears_in?: ShaalaaOccurrence[];
+  appears_in?: DatasetOccurrence[];
 };
 
-type ShaalaaResponse = {
-  items?: ShaalaaItem[];
+type DatasetResponse = {
+  items?: DatasetItem[];
 };
 
 type SolutionEntry = {
   question: string;
-  answer: string;
+  formattedAnswerHtml: string;
+  answerSearchText: string;
   source?: string;
 };
 
@@ -61,7 +63,7 @@ const toTitleFromSlug = (slug: string): string =>
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
 
-const chapterUrlFromItem = (item: ShaalaaItem): string | undefined =>
+const chapterUrlFromItem = (item: DatasetItem): string | undefined =>
   (item.appears_in || [])
     .map((entry) => entry.url || "")
     .find((url) => url.includes("/textbook-solutions/c/"));
@@ -84,7 +86,7 @@ const getChapterMetaFromUrl = (url: string) => {
   };
 };
 
-const buildChaptersFromShaalaaItems = (items: ShaalaaItem[]): Chapter[] => {
+const buildChaptersFromDatasetItems = (items: DatasetItem[]): Chapter[] => {
   const chapterMap = new Map<number, Chapter>();
 
   for (const item of items) {
@@ -144,36 +146,13 @@ const mergeChapters = (
   return merged.sort((a, b) => a.id - b.id);
 };
 
-const formatSolutionText = (rawText: string): string => {
-  const compact = normalizeMathText(rawText)
-    .replace(/\r?\n/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  const formatted = compact
-    .replace(/\s+(Let\s)/g, "\n$1")
-    .replace(/\s+(We know that,?\s*)/gi, "\n$1")
-    .replace(/\s+(According to the[^.]*\.)/gi, "\n\n$1")
-    .replace(/\s+(Multiplying both sides[^.]*\.)/gi, "\n\n$1")
-    .replace(/\s+(Subtracting[^.]*\.)/gi, "\n\n$1")
-    .replace(/\s+(Substituting[^.]*\.)/gi, "\n\n$1")
-    .replace(/\s*∴\s*/g, "\n∴ ")
-    .replace(/\s*\.{3,}\s*\(([ivx]+)\)\s*/gi, " ......($1)\n");
-
-  return formatted
-    .split("\n")
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0)
-    .join("\n");
-};
-
 const formatQuestionText = (rawText: string): string =>
   normalizeMathText(rawText)
     .replace(/\s+([=+\-×÷])/g, " $1 ")
     .replace(/\s{2,}/g, " ")
     .trim();
 
-const SHAAALA_BOOK_FILE_MAP: Record<string, string> = {
+const DATASET_BOOK_FILE_MAP: Record<string, string> = {
   "math-1": "algebra_maths_1.json",
   "math-2": "geometry_maths_2.json",
   "sci-1": "science_tech_1.json",
@@ -184,6 +163,19 @@ const SHAAALA_BOOK_FILE_MAP: Record<string, string> = {
   "mar-1": "marathi_second_language.json",
   "hin-1": "hindi_lokbharati.json",
 };
+
+const SUBJECT_GRADIENT_CLASS: Record<string, string> = {
+  math: "from-blue-500 to-indigo-600",
+  science: "from-emerald-400 to-teal-600",
+  history: "from-amber-400 to-orange-500",
+  geography: "from-cyan-400 to-blue-500",
+  english: "from-pink-500 to-rose-600",
+  marathi: "from-orange-400 to-rose-500",
+  hindi: "from-fuchsia-500 to-violet-600",
+};
+
+const getSubjectGradientClass = (subject: Subject): string =>
+  SUBJECT_GRADIENT_CLASS[subject.id] || "from-indigo-500 to-purple-600";
 
 interface Class10PageProps {
   nav: NavigationState;
@@ -209,7 +201,7 @@ const Class10Page: React.FC<Class10PageProps> = ({
       if (!baseSelectedBook) return;
 
       const fileName =
-        baseSelectedBook.datasetFile || SHAAALA_BOOK_FILE_MAP[baseSelectedBook.id];
+        baseSelectedBook.datasetFile || DATASET_BOOK_FILE_MAP[baseSelectedBook.id];
       if (!fileName) return;
 
       if (bookChapterCache.has(fileName)) {
@@ -226,8 +218,8 @@ const Class10Page: React.FC<Class10PageProps> = ({
       try {
         const response = await fetch(`/shaalaa/${fileName}`);
         if (!response.ok) return;
-        const raw: ShaalaaResponse = await response.json();
-        const dynamicChapters = buildChaptersFromShaalaaItems(raw.items || []);
+        const raw: DatasetResponse = await response.json();
+        const dynamicChapters = buildChaptersFromDatasetItems(raw.items || []);
         bookChapterCache.set(fileName, dynamicChapters);
         if (!isMounted) return;
         setSelectedBook({
@@ -379,9 +371,11 @@ const SubjectCard = ({
 }: {
   subject: Subject;
   onSelect: () => void;
-}) => (
+}) => {
+  const gradientClass = getSubjectGradientClass(subject);
+  return (
   <div
-    className={`group relative overflow-hidden bg-gradient-to-br ${subject.gradient} rounded-4xl p-8 flex flex-col min-h-[400px] transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl`}
+    className={`group relative overflow-hidden bg-gradient-to-br ${gradientClass} rounded-4xl p-8 flex flex-col min-h-[400px] transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl`}
   >
     <div className="bg-white/20 backdrop-blur-md w-20 h-20 rounded-3xl flex items-center justify-center mb-8 shadow-inner">
       <span className="material-symbols-outlined text-white text-5xl">
@@ -401,7 +395,8 @@ const SubjectCard = ({
       Start Learning
     </button>
   </div>
-);
+  );
+};
 
 const SeoSupportBlock = ({
   title,
@@ -536,7 +531,9 @@ const ChapterView = ({
   onBack: () => void;
   isLoadingChapters: boolean;
   onSelectChapter: (id: number) => void;
-}) => (
+}) => {
+  const gradientClass = getSubjectGradientClass(subject);
+  return (
   <div className="py-12 max-w-4xl mx-auto px-4">
     <button
       onClick={onBack}
@@ -546,7 +543,7 @@ const ChapterView = ({
     </button>
     <div className="flex items-center gap-6 mb-16">
       <div
-        className={`w-24 h-24 bg-gradient-to-br ${subject.gradient} rounded-3xl flex items-center justify-center text-white shrink-0 shadow-lg`}
+        className={`w-24 h-24 bg-gradient-to-br ${gradientClass} rounded-3xl flex items-center justify-center text-white shrink-0 shadow-lg`}
       >
         <span className="material-symbols-outlined text-5xl">
           {subject.icon}
@@ -611,7 +608,8 @@ const ChapterView = ({
     </div>
     <GeminiAssistant context={`${book.title} Chapters List`} />
   </div>
-);
+  );
+};
 
 const ExerciseView = ({
   subject,
@@ -701,7 +699,7 @@ const ExerciseView = ({
               All Questions
             </h4>
             <span className="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-lg text-xs font-bold">
-              From Shaalaa
+              From Textbook Data
             </span>
           </div>
           <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">
@@ -738,10 +736,14 @@ const SolutionsDetailView = ({
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [visibleCount, setVisibleCount] = useState(20);
+  const [compactView, setCompactView] = useState(false);
+  const [showOnlyAnswers, setShowOnlyAnswers] = useState(false);
   const fallbackSolutions: SolutionEntry[] = [
     {
       question: "Questions are being updated for this chapter.",
-      answer:
+      formattedAnswerHtml:
+        "<h3 class=\"answer-heading\">Answer</h3><p>No textbook question-answer pair was found in the current dataset for this chapter/exercise.</p>",
+      answerSearchText:
         "No textbook question-answer pair was found in the current dataset for this chapter/exercise.",
     },
   ];
@@ -752,9 +754,9 @@ const SolutionsDetailView = ({
       setError(null);
       setVisibleCount(20);
       try {
-        const fileName = book.datasetFile || SHAAALA_BOOK_FILE_MAP[book.id];
+        const fileName = book.datasetFile || DATASET_BOOK_FILE_MAP[book.id];
         if (!fileName) {
-          setError(`No Shaalaa dataset is mapped for ${book.title}.`);
+          setError(`No dataset is mapped for ${book.title}.`);
           setSolutions(fallbackSolutions);
           return;
         }
@@ -764,7 +766,7 @@ const SolutionsDetailView = ({
           throw new Error(`Failed to load /shaalaa/${fileName}`);
         }
 
-        const raw: ShaalaaResponse = await response.json();
+        const raw: DatasetResponse = await response.json();
         const chapterKey = `-chapter-${chapter.id}-`;
 
         const filtered = (raw.items || []).filter((item) =>
@@ -775,17 +777,25 @@ const SolutionsDetailView = ({
 
         const seen = new Set<string>();
         const normalized = filtered
-          .map((item) => ({
-            question: formatQuestionText((item.question || "").trim()),
-            answer: formatSolutionText(item.solution_text || ""),
-            source: (item.appears_in || [])
-              .map((entry) => repairText(entry.text || ""))
-              .filter(Boolean)
-              .find((text) => /^Q\s/i.test(text)),
-          }))
-          .filter((item) => item.question.length > 0 && item.answer.length > 0)
+          .map((item) => {
+            const question = formatQuestionText((item.question || "").trim());
+            const rawAnswer = String(item.solution_html || item.solution_text || "").trim();
+            const { formattedAnswerHtml } = formatSolution(question, rawAnswer);
+            return {
+              question,
+              formattedAnswerHtml,
+              answerSearchText: toPlainText(formattedAnswerHtml).toLowerCase(),
+              source: (item.appears_in || [])
+                .map((entry) => repairText(entry.text || ""))
+                .filter(Boolean)
+                .find((text) => /^Q\s/i.test(text)),
+            };
+          })
+          .filter(
+            (item) => item.question.length > 0 && item.answerSearchText.length > 0,
+          )
           .filter((item) => {
-            const key = `${item.question}__${item.answer}`;
+            const key = `${item.question}__${item.formattedAnswerHtml}`;
             if (seen.has(key)) return false;
             seen.add(key);
             return true;
@@ -793,7 +803,7 @@ const SolutionsDetailView = ({
 
         setSolutions(normalized.length > 0 ? normalized : fallbackSolutions);
       } catch (e) {
-        setError("Unable to load Shaalaa data right now.");
+        setError("Unable to load textbook data right now.");
         setSolutions(fallbackSolutions);
       } finally {
         setLoading(false);
@@ -812,7 +822,7 @@ const SolutionsDetailView = ({
   const filteredSolutions = solutions.filter((solution) => {
     if (!searchTerm.trim()) return true;
     const q = solution.question.toLowerCase();
-    const a = solution.answer.toLowerCase();
+    const a = solution.answerSearchText;
     const s = (solution.source || "").toLowerCase();
     const term = searchTerm.toLowerCase();
     return q.includes(term) || a.includes(term) || s.includes(term);
@@ -824,7 +834,7 @@ const SolutionsDetailView = ({
     solutions[0]?.question === fallbackSolutions[0].question;
 
   return (
-    <div className="py-12 max-w-4xl mx-auto px-4">
+    <div className="content py-12 max-w-4xl mx-auto px-4">
       <button
         onClick={onBack}
         className="flex items-center gap-2 font-bold text-indigo-600 mb-12 hover:gap-4 transition-all"
@@ -897,37 +907,56 @@ const SolutionsDetailView = ({
             </div>
           )}
 
-          <div className="space-y-10">
-          {visibleSolutions.map((sol, idx) => (
-            <div
-              key={`${sol.question}-${idx}`}
-              className="bg-white dark:bg-slate-800 rounded-[40px] p-8 md:p-10 shadow-xl border border-slate-100 dark:border-slate-700"
-            >
-              <div className="flex gap-4 mb-8">
-                <span className="shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
-                  Q{idx + 1}
-                </span>
+          {!showingFallback && (
+            <div className="answer-controls" role="group" aria-label="Answer view controls">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={compactView}
+                  onChange={(e) => setCompactView(e.target.checked)}
+                />
+                Compact view
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showOnlyAnswers}
+                  onChange={(e) => setShowOnlyAnswers(e.target.checked)}
+                />
+                Show only Answers
+              </label>
+            </div>
+          )}
+
+          <div
+            className={`space-y-10 qa-list ${compactView ? "compact-view" : ""} ${
+              showOnlyAnswers ? "answers-only-view" : ""
+            }`}
+          >
+            {visibleSolutions.map((sol, idx) => (
+              <article
+                key={`${sol.question}-${idx}`}
+                className="qa bg-white dark:bg-slate-800 rounded-[40px] p-8 md:p-10 shadow-xl border border-slate-100 dark:border-slate-700"
+              >
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold dark:text-white leading-relaxed">
+                  <h2 className="q-title text-2xl font-bold dark:text-white leading-relaxed">
+                    <span className="q-num shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full inline-flex items-center justify-center font-bold">
+                      Q{idx + 1}.
+                    </span>
                     {sol.question}
-                  </h3>
+                  </h2>
                   {sol.source && (
                     <p className="text-xs uppercase tracking-widest text-slate-400 font-bold">
                       {sol.source}
                     </p>
                   )}
                 </div>
-              </div>
-              <div className="space-y-6 ml-14">
-                <h4 className="text-indigo-600 dark:text-indigo-400 font-black uppercase tracking-widest text-xs">
-                  Answer
-                </h4>
-                <p className="text-lg text-slate-700 dark:text-slate-300 font-medium whitespace-pre-line">
-                  {sol.answer}
-                </p>
-              </div>
-            </div>
-          ))}
+                <div
+                  className="a-body space-y-6 md:ml-14 text-lg text-slate-700 dark:text-slate-300 font-medium"
+                  dangerouslySetInnerHTML={{ __html: sol.formattedAnswerHtml }}
+                />
+              </article>
+            ))}
           </div>
 
           {!showingFallback &&
@@ -957,3 +986,4 @@ const SolutionsDetailView = ({
 };
 
 export default Class10Page;
+

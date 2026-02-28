@@ -4,22 +4,22 @@ interface AssistantProps {
   context: string;
 }
 
-type ShaalaaOccurrence = {
+type DatasetOccurrence = {
   text?: string;
   url?: string;
 };
 
-type ShaalaaItem = {
+type DatasetItem = {
   question?: string;
   solution_text?: string;
-  appears_in?: ShaalaaOccurrence[];
+  appears_in?: DatasetOccurrence[];
 };
 
-type ShaalaaResponse = {
-  items?: ShaalaaItem[];
+type DatasetResponse = {
+  items?: DatasetItem[];
 };
 
-const SHAAALA_FILES = [
+const DATASET_FILES = [
   "algebra_maths_1.json",
   "geometry_maths_2.json",
   "science_tech_1.json",
@@ -65,7 +65,7 @@ const STOP_WORDS = new Set([
   "then",
 ]);
 
-const itemsCache = new Map<string, ShaalaaItem[]>();
+const itemsCache = new Map<string, DatasetItem[]>();
 
 const repairText = (text: string): string =>
   text
@@ -116,10 +116,10 @@ const getContextPreferredFiles = (context: string): string[] => {
   if (c.includes("english")) return ["english.json"];
   if (c.includes("hindi")) return ["hindi_lokbharati.json"];
   if (c.includes("marathi")) return ["marathi_second_language.json"];
-  return SHAAALA_FILES;
+  return DATASET_FILES;
 };
 
-const loadShaalaaItems = async (context: string): Promise<ShaalaaItem[]> => {
+const loadDatasetItems = async (context: string): Promise<DatasetItem[]> => {
   const files = getContextPreferredFiles(context);
   const cacheKey = files.join("|");
   if (itemsCache.has(cacheKey)) {
@@ -133,7 +133,7 @@ const loadShaalaaItems = async (context: string): Promise<ShaalaaItem[]> => {
   );
 
   const items = responses.flatMap((raw) => {
-    const data = raw as ShaalaaResponse | null;
+    const data = raw as DatasetResponse | null;
     return data?.items || [];
   });
   itemsCache.set(cacheKey, items);
@@ -141,7 +141,7 @@ const loadShaalaaItems = async (context: string): Promise<ShaalaaItem[]> => {
 };
 
 const scoreItem = (
-  item: ShaalaaItem,
+  item: DatasetItem,
   promptTokens: string[],
   contextTokens: string[],
   promptPhrase: string,
@@ -181,7 +181,7 @@ const GeminiAssistant: React.FC<AssistantProps> = ({ context }) => {
     setResponse(null);
 
     try {
-      const items = await loadShaalaaItems(context);
+      const items = await loadDatasetItems(context);
       if (items.length === 0) {
         setResponse(
           "I couldn't load local textbook data. Please refresh and try again.",
@@ -271,7 +271,7 @@ const GeminiAssistant: React.FC<AssistantProps> = ({ context }) => {
               <span className="font-bold text-indigo-600 dark:text-indigo-400">
                 "{repairText(context)}"
               </span>
-              . Ask your textbook question and I will find the closest Shaalaa
+              . Ask your textbook question and I will find the closest textbook
               answer.
             </div>
             {response && (
@@ -314,3 +314,4 @@ const GeminiAssistant: React.FC<AssistantProps> = ({ context }) => {
 };
 
 export default GeminiAssistant;
+

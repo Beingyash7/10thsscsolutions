@@ -1,1 +1,220 @@
-/* Global overrides can be added here. Tailwind is loaded from CDN in index.html. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  font-size: 16px;
+  color: #0f172a;
+}
+
+.hero-pattern {
+  background-color: transparent;
+  background-image: radial-gradient(#4f46e5 0.5px, transparent 0.5px), radial-gradient(#4f46e5 0.5px, transparent 0.5px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+.dark .hero-pattern {
+  background-image: radial-gradient(#6366f1 0.2px, transparent 0.2px);
+}
+
+@keyframes floating {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #4f46e5;
+}
+
+.content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+p {
+  margin: 0.6rem 0;
+}
+
+.qa {
+  padding: 14px;
+  border-radius: 14px;
+  margin: 14px 0;
+}
+
+.q-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.q-num {
+  margin-right: 8px;
+  min-width: 42px;
+  min-height: 42px;
+  line-height: 1;
+}
+
+.a-body {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.a-body p {
+  margin: 0.6rem 0;
+}
+
+.answer-heading {
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0.2rem 0 0.5rem;
+  color: #4338ca;
+}
+
+.steps {
+  padding-left: 1.2rem;
+  list-style: decimal;
+}
+
+.steps li {
+  margin: 0.5rem 0;
+}
+
+.bullets {
+  padding-left: 1.2rem;
+  list-style: disc;
+}
+
+.bullets li {
+  margin: 0.4rem 0;
+}
+
+.final-answer {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-left: 4px solid currentColor;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.math-line {
+  margin: 8px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(79, 70, 229, 0.08);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  overflow-x: auto;
+}
+
+.note,
+.observation,
+.conclusion,
+.diagram-callout {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+.a-body table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.a-body table th,
+.a-body table td {
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  text-align: left;
+}
+
+pre,
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+.answer-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 10px 0 16px;
+}
+
+.answer-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.compact-view .qa {
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.answers-only-view .q-title {
+  opacity: 0.78;
+  font-size: 0.96rem;
+}
+
+.answers-only-view .q-num {
+  transform: scale(0.92);
+}
+
+.dark .answer-heading {
+  color: #a5b4fc;
+}
+
+.dark .final-answer,
+.dark .note,
+.dark .observation,
+.dark .conclusion,
+.dark .diagram-callout {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.dark .math-line {
+  background: rgba(129, 140, 248, 0.12);
+  border-color: rgba(129, 140, 248, 0.35);
+}
+
+.dark .answer-controls label {
+  color: #cbd5e1;
+}
+

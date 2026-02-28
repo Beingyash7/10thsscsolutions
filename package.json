@@ -6,7 +6,7 @@
   "scripts": {
     "sitemap": "node scripts/generate-sitemap.mjs",
     "prerender:routes": "node scripts/prerender-routes.mjs",
-    "prebuild": "npm run sitemap",
+    "prebuild": "node scripts/fix-datasets.mjs && npm run sitemap",
     "dev": "vite",
     "build": "vite build",
     "postbuild": "npm run prerender:routes",
@@ -21,6 +21,9 @@
     "@vitejs/plugin-react": "^5.0.0",
     "localtunnel": "^2.0.2",
     "typescript": "~5.8.2",
-    "vite": "^6.4.1"
+    "vite": "^6.4.1",
+    "tailwindcss": "^3.4.17",
+    "postcss": "^8.4.49",
+    "autoprefixer": "^10.4.20"
   }
 }

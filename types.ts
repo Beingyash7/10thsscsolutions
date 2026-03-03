@@ -4,12 +4,28 @@ export interface Exercise {
   questions: number;
 }
 
+export interface AuthorSocialLinks {
+  website?: string;
+  twitter?: string;
+  linkedin?: string;
+}
+
+export interface Author {
+  slug: string;
+  name: string;
+  bio: string;
+  photo: string;
+  social: AuthorSocialLinks;
+}
+
 export interface Chapter {
   id: number;
   title: string;
   metadata?: string;
   questions?: number;
   exercises?: Exercise[];
+  lastUpdated?: string;
+  author?: Author;
 }
 
 export interface Book {

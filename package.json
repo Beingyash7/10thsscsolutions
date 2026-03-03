@@ -6,11 +6,13 @@
   "scripts": {
     "sitemap": "node scripts/generate-sitemap.mjs",
     "prerender:routes": "node scripts/prerender-routes.mjs",
-    "prebuild": "node scripts/fix-datasets.mjs && npm run sitemap",
+    "enrich:content": "node scripts/enrich-content.mjs",
+    "prebuild": "node scripts/fix-datasets.mjs && npm run enrich:content && npm run sitemap",
     "dev": "vite",
     "build": "vite build",
     "postbuild": "npm run prerender:routes",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run"
   },
   "dependencies": {
     "react": "^19.2.4",
@@ -24,6 +26,7 @@
     "vite": "^6.4.1",
     "tailwindcss": "^3.4.17",
     "postcss": "^8.4.49",
-    "autoprefixer": "^10.4.20"
+    "autoprefixer": "^10.4.20",
+    "vitest": "^3.2.4"
   }
 }

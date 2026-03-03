@@ -5,6 +5,7 @@ const SITE_URL = (process.env.SITE_URL || 'https://10thsscsolutions.pages.dev').
 const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const SHAALAA_DIR = path.join(PUBLIC_DIR, 'shaalaa');
+const AUTHORS_DIR = path.join(PUBLIC_DIR, 'authors');
 
 const BOOKS = [
   { subjectId: 'math', bookId: 'math-1', file: 'algebra_maths_1.json' },
@@ -83,6 +84,17 @@ addUrl('/about.html', 'monthly', '0.4', today);
 addUrl('/contact.html', 'monthly', '0.4', today);
 addUrl('/privacy-policy.html', 'yearly', '0.3', today);
 addUrl('/terms.html', 'yearly', '0.3', today);
+addUrl('/authors/editorial-team.html', 'monthly', '0.5', today);
+addUrl('/authors/aarti-kulkarni.html', 'monthly', '0.5', today);
+addUrl('/authors/rahul-patil.html', 'monthly', '0.5', today);
+
+if (fs.existsSync(AUTHORS_DIR)) {
+  for (const file of fs.readdirSync(AUTHORS_DIR)) {
+    if (!file.endsWith('.html')) continue;
+    const authorPath = `/authors/${file}`;
+    addUrl(authorPath, 'monthly', '0.5', fileLastmod(path.join(AUTHORS_DIR, file)));
+  }
+}
 
 for (const book of BOOKS) {
   const filePath = path.join(SHAALAA_DIR, book.file);

@@ -7,6 +7,7 @@ const DIST_DIR = path.join(ROOT, 'dist');
 const DIST_INDEX = path.join(DIST_DIR, 'index.html');
 const SITEMAP_PATH = path.join(ROOT, 'public', 'sitemap.xml');
 const DATA_DIR = path.join(ROOT, 'public', 'shaalaa');
+const CHAPTER_META_PATH = path.join(DATA_DIR, 'chapter-meta.json');
 const DEFAULT_ORIGIN = (process.env.SITE_URL || 'https://10thsscsolutions.pages.dev').replace(/\/+$/, '');
 
 const BOOK_DATASET_MAP = {
@@ -45,6 +46,14 @@ const bookNames = {
   'mar-1': 'Marathi (Second Language)',
 };
 
+const chapterMetaRows = fs.existsSync(CHAPTER_META_PATH)
+  ? JSON.parse(fs.readFileSync(CHAPTER_META_PATH, 'utf8')).chapters || []
+  : [];
+
+const chapterMetaMap = new Map(
+  chapterMetaRows.map((row) => [`${row.subjectId}/${row.bookId}/${row.chapterId}`, row]),
+);
+
 if (!fs.existsSync(DIST_INDEX)) {
   console.error('dist/index.html not found. Run build first.');
   process.exit(1);
@@ -79,6 +88,30 @@ const escapeHtml = (value) =>
     .replace(/'/g, '&#39;');
 
 const escapeAttr = (value) => escapeHtml(String(value ?? ''));
+
+const plainText = (value) =>
+  String(value || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const normalizeDescription = (value) => {
+  const text = plainText(value);
+  if (text.length >= 150 && text.length <= 160) return text;
+  if (text.length > 160) {
+    const clipped = text.slice(0, 157).replace(/\s+\S*$/, '').trim();
+    return `${clipped}.`;
+  }
+  return `${text} Updated chapter notes, solved textbook Q&A, and exam-focused revision help for Maharashtra Board learners.`.slice(0, 160);
+};
+
+const frontmatterMeta = (chapterName, subject, summary) => ({
+  title: `${chapterName} – 10th SSC Solutions`,
+  description: normalizeDescription(
+    summary ||
+      `${chapterName} in ${subject} with chapter-wise textbook question answers, concise explanations, and revision-ready points.`,
+  ),
+});
 
 const parsePathContext = (pathname) => {
   const trimmed = pathname.replace(/^\/+|\/+$/g, '');
@@ -171,10 +204,11 @@ const getMetaForPath = (pathname) => {
   }
 
   if (ctx.type === 'chapter') {
-    return {
-      title: `${ctx.bookName} Chapter ${ctx.chapterNo} Solutions | ${siteName}`,
-      description: `${ctx.bookName} chapter ${ctx.chapterNo} (${ctx.chapterTitle}) 10th SSC solutions, digest answers and textbook question-answer explanations.`,
-    };
+    return frontmatterMeta(
+      ctx.chapterTitle,
+      `${ctx.subjectName} ${ctx.bookName}`,
+      `${ctx.chapterTitle} chapter-wise 10th SSC solutions with digest-style textbook question answers, concise explanations, revision points, and exam-focused guidance for Maharashtra Board students.`,
+    );
   }
 
   return {
@@ -318,8 +352,13 @@ const buildChapterClusterSection = (ctx, chapterItems) => {
         .join('')
     : '\n  <p><em>Chapter questions are being updated.</em></p>';
 
+  const metaRow = chapterMetaMap.get(`${ctx.subjectId}/${ctx.bookId}/${Number(ctx.chapterNo)}`);
+  const updatedOn = metaRow?.lastUpdated || new Date().toISOString().slice(0, 10);
+  const author = metaRow?.author || { slug: 'editorial-team', name: 'SSC Solutions Editorial Team' };
+
   return `
 <section class="chapter-content" style="max-width:1000px;margin:24px auto;padding:20px 24px;border:1px solid #e2e8f0;border-radius:16px;background:#ffffff;color:#0f172a;line-height:1.6">
+  <p style="font-size:14px;color:#475569;margin-bottom:8px;"><strong>Updated on:</strong> ${escapeHtml(updatedOn)} | <strong>Author:</strong> <a href="/authors/${escapeAttr(author.slug)}.html">${escapeHtml(author.name)}</a></p>
   <h1>${escapeHtml(`${ctx.bookName} Chapter ${ctx.chapterNo} ${ctx.chapterTitle} Solutions`)}</h1>${articles}
   <nav class="chapter-links" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:20px">${prevLink}<a href="/10th-ssc-solutions/${ctx.subjectId}/${ctx.bookId}">All Chapters: ${escapeHtml(ctx.bookName)}</a>${nextLink}</nav>
   <section class="other-subjects" style="margin-top:20px">
@@ -372,28 +411,30 @@ const buildStructuredData = (pathname, chapterItems = []) => {
   ];
 
   if (ctx.type === 'chapter') {
-    schemas.push({
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      headline: meta.title,
-      description: meta.description,
-      url: canonical,
-      mainEntityOfPage: canonical,
-      author: { '@type': 'Organization', name: '10th SSC Solutions' },
-      publisher: { '@type': 'Organization', name: '10th SSC Solutions', url: DEFAULT_ORIGIN },
-    });
-
-    const questionItems = chapterItems.slice(0, 20).map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: `Q${index + 1}. ${item.question}`,
-      url: canonical,
+    const metaRow = chapterMetaMap.get(`${ctx.subjectId}/${ctx.bookId}/${Number(ctx.chapterNo)}`);
+    const authorName = metaRow?.author?.name || 'SSC Solutions Editorial Team';
+    const datePublished = metaRow?.lastUpdated || new Date().toISOString().slice(0, 10);
+    const authorUrl = `${DEFAULT_ORIGIN}/authors/${metaRow?.author?.slug || 'editorial-team'}.html`;
+    const qaPairs = chapterItems.slice(0, 40).map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: plainText(formatSolution(item.question, item.answerHtml).formattedAnswerHtml),
+      },
     }));
 
     schemas.push({
       '@context': 'https://schema.org',
-      '@type': 'ItemList',
-      itemListElement: questionItems,
+      '@type': 'FAQPage',
+      headline: meta.title,
+      description: meta.description,
+      url: canonical,
+      mainEntityOfPage: canonical,
+      about: ctx.bookName,
+      datePublished,
+      author: { '@type': 'Person', name: authorName, url: authorUrl },
+      mainEntity: qaPairs,
     });
   }
 
@@ -409,7 +450,19 @@ const updateHtmlMeta = (html, pathname) => {
   const chapterItems = ctx.type === 'chapter' ? getChapterItems(ctx) : [];
 
   let next = html;
+  const hreflangLinks = [
+    { lang: 'en', href: `${DEFAULT_ORIGIN}/en${pathname === '/' ? '' : pathname}` },
+    { lang: 'mr', href: `${DEFAULT_ORIGIN}/mr${pathname === '/' ? '' : pathname}` },
+    { lang: 'hi', href: `${DEFAULT_ORIGIN}/hi${pathname === '/' ? '' : pathname}` },
+    { lang: 'x-default', href: canonical },
+  ]
+    .map((entry) => `<link rel="alternate" hreflang="${entry.lang}" href="${escapeAttr(entry.href)}" />`)
+    .join('\n');
+
   next = next.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(meta.title)}</title>`);
+  next = next.replace(/<html[^>]*>/i, '<html lang="en" class="light">');
+  next = next.replace(/<meta[^>]*name="keywords"[^>]*\/?>\s*/gi, '');
+  next = next.replace(/<link[^>]*rel="alternate"[^>]*hreflang="[^"]*"[^>]*\/?>\s*/gi, '');
   next = next.replace(/<meta[^>]*name="description"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="description" content="${escapeAttr(meta.description)}" />`);
   next = next.replace(/<meta[^>]*property="og:title"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:title" content="${escapeAttr(meta.title)}" />`);
   next = next.replace(/<meta[^>]*property="og:description"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:description" content="${escapeAttr(meta.description)}" />`);
@@ -417,6 +470,7 @@ const updateHtmlMeta = (html, pathname) => {
   next = next.replace(/<meta[^>]*name="twitter:description"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="twitter:description" content="${escapeAttr(meta.description)}" />`);
   next = next.replace(/<meta[^>]*property="og:url"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:url" content="${escapeAttr(canonical)}" />`);
   next = next.replace(/<link[^>]*rel="canonical"[^>]*href="[^"]*"[^>]*\/?>/i, `<link rel="canonical" href="${escapeAttr(canonical)}" />`);
+  next = next.replace(/<link[^>]*rel="alternate"[^>]*title="Sitemap"[^>]*\/?>/i, `<link rel="alternate" type="application/xml" title="Sitemap" href="/sitemap.xml" />\n${hreflangLinks}`);
 
   if (pathname !== '/' && !pathname.endsWith('.html')) {
     next = next.replace(/<\/head>/i, `${buildStructuredData(pathname, chapterItems)}\n</head>`);

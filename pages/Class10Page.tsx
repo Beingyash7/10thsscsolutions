@@ -6,11 +6,13 @@ import {
   Book,
   Chapter,
   Exercise,
+  Author,
 } from "../types";
 import { CLASS_10_SUBJECTS } from "../constants";
 import GeminiAssistant from "../components/GeminiAssistant";
 import { slugify } from "../routing";
 import { formatSolution, toPlainText } from "../src/utils/formatSolution";
+import { inferImageAlt } from "../src/utils/seo";
 
 type DatasetOccurrence = {
   text?: string;
@@ -28,6 +30,18 @@ type DatasetResponse = {
   items?: DatasetItem[];
 };
 
+type ChapterMetaRow = {
+  subjectId: string;
+  bookId: string;
+  chapterId: number;
+  lastUpdated: string;
+  author: Author;
+};
+
+type ChapterMetaResponse = {
+  chapters?: ChapterMetaRow[];
+};
+
 type SolutionEntry = {
   question: string;
   formattedAnswerHtml: string;
@@ -36,6 +50,7 @@ type SolutionEntry = {
 };
 
 const bookChapterCache = new Map<string, Chapter[]>();
+const chapterMetaCache = new Map<string, ChapterMetaRow>();
 
 const repairText = (text: string): string =>
   text
@@ -177,6 +192,9 @@ const SUBJECT_GRADIENT_CLASS: Record<string, string> = {
 const getSubjectGradientClass = (subject: Subject): string =>
   SUBJECT_GRADIENT_CLASS[subject.id] || "from-indigo-500 to-purple-600";
 
+const chapterMetaKey = (subjectId: string, bookId: string, chapterId: number): string =>
+  `${subjectId}/${bookId}/${chapterId}`;
+
 interface Class10PageProps {
   nav: NavigationState;
   onNavigate: (page: Page) => void;
@@ -192,6 +210,49 @@ const Class10Page: React.FC<Class10PageProps> = ({
   const baseSelectedBook = selectedSubject?.books.find((b) => b.id === nav.bookId);
   const [selectedBook, setSelectedBook] = useState<Book | undefined>(baseSelectedBook);
   const [chaptersLoading, setChaptersLoading] = useState(false);
+  const [chapterMetaLoaded, setChapterMetaLoaded] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const loadChapterMeta = async () => {
+      if (chapterMetaCache.size > 0) {
+        if (isMounted) setChapterMetaLoaded(true);
+        return;
+      }
+      try {
+        const response = await fetch("/shaalaa/chapter-meta.json");
+        if (!response.ok) return;
+        const parsed: ChapterMetaResponse = await response.json();
+        for (const row of parsed.chapters || []) {
+          chapterMetaCache.set(
+            chapterMetaKey(row.subjectId, row.bookId, row.chapterId),
+            row,
+          );
+        }
+      } finally {
+        if (isMounted) setChapterMetaLoaded(true);
+      }
+    };
+    loadChapterMeta();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const applyMeta = (book: Book): Book => ({
+    ...book,
+    chapters: book.chapters.map((chapter) => {
+      const metadata = chapterMetaCache.get(
+        chapterMetaKey(book.subjectId, book.id, chapter.id),
+      );
+      if (!metadata) return chapter;
+      return {
+        ...chapter,
+        lastUpdated: metadata.lastUpdated,
+        author: metadata.author,
+      };
+    }),
+  });
 
   useEffect(() => {
     let isMounted = true;
@@ -207,10 +268,10 @@ const Class10Page: React.FC<Class10PageProps> = ({
       if (bookChapterCache.has(fileName)) {
         const cached = bookChapterCache.get(fileName) || [];
         if (!isMounted) return;
-        setSelectedBook({
+        setSelectedBook(applyMeta({
           ...baseSelectedBook,
           chapters: mergeChapters(baseSelectedBook.chapters, cached),
-        });
+        }));
         return;
       }
 
@@ -222,10 +283,10 @@ const Class10Page: React.FC<Class10PageProps> = ({
         const dynamicChapters = buildChaptersFromDatasetItems(raw.items || []);
         bookChapterCache.set(fileName, dynamicChapters);
         if (!isMounted) return;
-        setSelectedBook({
+        setSelectedBook(applyMeta({
           ...baseSelectedBook,
           chapters: mergeChapters(baseSelectedBook.chapters, dynamicChapters),
-        });
+        }));
       } finally {
         if (isMounted) setChaptersLoading(false);
       }
@@ -235,7 +296,7 @@ const Class10Page: React.FC<Class10PageProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [baseSelectedBook]);
+  }, [baseSelectedBook, chapterMetaLoaded]);
 
   const selectedChapter = selectedBook?.chapters.find(
     (c) => c.id === nav.chapterId,
@@ -260,6 +321,8 @@ const Class10Page: React.FC<Class10PageProps> = ({
         chapter={selectedChapter!}
         exercise={selectedExercise}
         onBack={() => onUpdateNav({ exerciseId: undefined })}
+        onGoHome={() => onNavigate(Page.Home)}
+        onGoChapter={() => onUpdateNav({ exerciseId: undefined })}
       />
     );
   }
@@ -271,6 +334,8 @@ const Class10Page: React.FC<Class10PageProps> = ({
         book={selectedBook!}
         chapter={selectedChapter}
         onBack={() => onUpdateNav({ chapterId: undefined })}
+        onGoHome={() => onNavigate(Page.Home)}
+        onGoBook={() => onUpdateNav({ chapterId: undefined })}
         onSelectExercise={(id) => onUpdateNav({ exerciseId: id })}
       />
     );
@@ -282,6 +347,8 @@ const Class10Page: React.FC<Class10PageProps> = ({
         subject={selectedSubject!}
         book={selectedBook}
         onBack={() => onUpdateNav({ bookId: undefined })}
+        onGoHome={() => onNavigate(Page.Home)}
+        onGoSubject={() => onUpdateNav({ bookId: undefined })}
         isLoadingChapters={chaptersLoading}
         onSelectChapter={(id) =>
           onUpdateNav({ chapterId: id, exerciseId: undefined })
@@ -295,6 +362,7 @@ const Class10Page: React.FC<Class10PageProps> = ({
       <BookSelectionView
         subject={selectedSubject}
         onBack={() => onUpdateNav({ subjectId: undefined })}
+        onGoHome={() => onNavigate(Page.Home)}
         onSelectBook={(id) =>
           onUpdateNav({
             bookId: id,
@@ -365,6 +433,51 @@ const Class10Page: React.FC<Class10PageProps> = ({
 
 // --- Sub-components for deep navigation ---
 
+const formatUpdatedDate = (value?: string): string => {
+  if (!value) return "Recently updated";
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return value;
+  return parsed.toLocaleDateString("en-IN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+const BreadcrumbTrail = ({ items }: { items: Array<{ label: string; onClick?: () => void }> }) => (
+  <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500" aria-label="Breadcrumb">
+    {items.map((item, index) => (
+      <React.Fragment key={`${item.label}-${index}`}>
+        {item.onClick ? (
+          <button className="hover:text-indigo-600 font-semibold" onClick={item.onClick}>
+            {item.label}
+          </button>
+        ) : (
+          <span className="font-semibold text-slate-700 dark:text-slate-200">{item.label}</span>
+        )}
+        {index < items.length - 1 ? (
+          <span className="material-symbols-outlined text-xs">chevron_right</span>
+        ) : null}
+      </React.Fragment>
+    ))}
+  </nav>
+);
+
+const ChapterMetaLine = ({ chapter }: { chapter: Chapter }) => (
+  <div className="mb-6 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 px-4 py-3 text-sm text-slate-600 dark:text-slate-300">
+    <span className="font-semibold">Updated on:</span> {formatUpdatedDate(chapter.lastUpdated)}{" "}
+    {chapter.author ? (
+      <>
+        <span className="mx-1">|</span>
+        <span className="font-semibold">Author:</span>{" "}
+        <a href={`/authors/${chapter.author.slug}.html`} className="text-indigo-600 hover:underline">
+          {chapter.author.name}
+        </a>
+      </>
+    ) : null}
+  </div>
+);
+
 const SubjectCard = ({
   subject,
   onSelect,
@@ -433,13 +546,22 @@ const SeoSupportBlock = ({
 const BookSelectionView = ({
   subject,
   onBack,
+  onGoHome,
   onSelectBook,
 }: {
   subject: Subject;
   onBack: () => void;
+  onGoHome: () => void;
   onSelectBook: (id: string) => void;
 }) => (
   <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <BreadcrumbTrail
+      items={[
+        { label: "Home", onClick: onGoHome },
+        { label: "Class 10", onClick: onBack },
+        { label: subject.title },
+      ]}
+    />
     <button
       onClick={onBack}
       className="flex items-center gap-2 font-bold text-indigo-600 mb-12 hover:gap-4 transition-all"
@@ -471,11 +593,16 @@ const BookSelectionView = ({
             <div className="h-64 overflow-hidden">
               <img
                 src={book.imageUrl}
-                alt={book.title}
+                alt={inferImageAlt(book.imageUrl, book.title)}
                 className="w-full h-full object-cover"
                 loading="lazy"
                 decoding="async"
                 fetchPriority="low"
+                srcSet={
+                  book.imageUrl.endsWith(".webp")
+                    ? `${book.imageUrl} 1x, ${book.imageUrl.replace(/\.webp$/i, ".png")} 2x`
+                    : `${book.imageUrl} 1x`
+                }
                 width={960}
                 height={1280}
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
@@ -523,18 +650,30 @@ const ChapterView = ({
   subject,
   book,
   onBack,
+  onGoHome,
+  onGoSubject,
   isLoadingChapters,
   onSelectChapter,
 }: {
   subject: Subject;
   book: Book;
   onBack: () => void;
+  onGoHome: () => void;
+  onGoSubject: () => void;
   isLoadingChapters: boolean;
   onSelectChapter: (id: number) => void;
 }) => {
   const gradientClass = getSubjectGradientClass(subject);
   return (
   <div className="py-12 max-w-4xl mx-auto px-4">
+    <BreadcrumbTrail
+      items={[
+        { label: "Home", onClick: onGoHome },
+        { label: "Class 10", onClick: onGoSubject },
+        { label: subject.title, onClick: onGoSubject },
+        { label: book.title },
+      ]}
+    />
     <button
       onClick={onBack}
       className="flex items-center gap-2 font-bold text-indigo-600 mb-12 hover:gap-4 transition-all"
@@ -616,15 +755,29 @@ const ExerciseView = ({
   book,
   chapter,
   onBack,
+  onGoHome,
+  onGoBook,
   onSelectExercise,
 }: {
   subject: Subject;
   book: Book;
   chapter: Chapter;
   onBack: () => void;
+  onGoHome: () => void;
+  onGoBook: () => void;
   onSelectExercise: (id: string) => void;
 }) => (
   <div className="py-12 max-w-5xl mx-auto px-4">
+    <BreadcrumbTrail
+      items={[
+        { label: "Home", onClick: onGoHome },
+        { label: "Class 10", onClick: onGoBook },
+        { label: subject.title, onClick: onGoBook },
+        { label: book.title, onClick: onGoBook },
+        { label: `Chapter ${chapter.id}` },
+      ]}
+    />
+    <ChapterMetaLine chapter={chapter} />
     <button
       onClick={onBack}
       className="flex items-center gap-2 font-bold text-indigo-600 mb-12 hover:gap-4 transition-all"
@@ -724,12 +877,16 @@ const SolutionsDetailView = ({
   chapter,
   exercise,
   onBack,
+  onGoHome,
+  onGoChapter,
 }: {
   subject: Subject;
   book: Book;
   chapter: Chapter;
   exercise: Exercise;
   onBack: () => void;
+  onGoHome: () => void;
+  onGoChapter: () => void;
 }) => {
   const [solutions, setSolutions] = useState<SolutionEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -835,6 +992,17 @@ const SolutionsDetailView = ({
 
   return (
     <div className="content py-12 max-w-4xl mx-auto px-4">
+      <BreadcrumbTrail
+        items={[
+          { label: "Home", onClick: onGoHome },
+          { label: "Class 10", onClick: onGoChapter },
+          { label: subject.title, onClick: onGoChapter },
+          { label: book.title, onClick: onGoChapter },
+          { label: `Chapter ${chapter.id}`, onClick: onGoChapter },
+          { label: exercise.name },
+        ]}
+      />
+      <ChapterMetaLine chapter={chapter} />
       <button
         onClick={onBack}
         className="flex items-center gap-2 font-bold text-indigo-600 mb-12 hover:gap-4 transition-all"

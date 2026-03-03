@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import Class10Page from './pages/Class10Page';
 import ClassHubPage from './pages/ClassHubPage';
 import { getCanonicalUrl, getSeoForNav, navToPath, parseLocationToNav } from './routing';
+import { buildHreflangAlternates } from './src/utils/seo';
 
 const App: React.FC = () => {
   const [nav, setNav] = useState<NavigationState>(() =>
@@ -19,6 +20,7 @@ const App: React.FC = () => {
     }
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (isDarkMode) {
@@ -91,6 +93,21 @@ const App: React.FC = () => {
     if (canonical) {
       canonical.setAttribute('href', getCanonicalUrl(nav));
     }
+
+    document.documentElement.setAttribute('lang', 'en');
+
+    const alternateLinks = buildHreflangAlternates(window.location.origin, nextPath);
+    const oldAlternates = document.querySelectorAll('link[rel="alternate"][hreflang]');
+    oldAlternates.forEach((node) => node.parentNode?.removeChild(node));
+
+    alternateLinks.forEach((alternate) => {
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', alternate.hreflang);
+      link.setAttribute('href', alternate.href);
+      link.setAttribute('data-hreflang-generated', 'true');
+      document.head.appendChild(link);
+    });
   }, [nav]);
 
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
@@ -112,12 +129,14 @@ const App: React.FC = () => {
         onNavigate={navigateTo} 
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
+        onSearch={setSearchQuery}
       />
       
       <main className="flex-grow">
         {nav.page === Page.Home && (
           <HomePage
             onNavigate={navigateTo}
+            searchQuery={searchQuery}
             onQuickViewBook={(book) =>
               setNav({
                 page: Page.Class10,

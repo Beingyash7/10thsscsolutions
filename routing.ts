@@ -1,5 +1,6 @@
 import { CLASS_10_SUBJECTS } from './constants';
 import { NavigationState, Page } from './types';
+import { generatePageMeta } from './src/utils/seo';
 
 const BASE_CLASS10_PATH = '/10th-ssc-solutions';
 
@@ -146,10 +147,11 @@ export const getSeoForNav = (nav: NavigationState) => {
     };
   }
 
-  return {
-    title: `${book.title} Chapter ${chapter.id} Solutions | ${siteName}`,
-    description: `${book.title} chapter ${chapter.id} (${chapter.title}) 10th SSC solutions, digest answers and textbook question-answer explanations.`,
-  };
+  return generatePageMeta({
+    chapterName: `${chapter.title}`,
+    subject: `${subject.title} ${book.title}`,
+    summary: `${chapter.title} chapter-wise 10th SSC solutions with digest-style textbook question answers, concise explanations, revision points, and exam-focused guidance for Maharashtra Board students.`,
+  });
 };
 
 export const getCanonicalUrl = (nav: NavigationState): string => {

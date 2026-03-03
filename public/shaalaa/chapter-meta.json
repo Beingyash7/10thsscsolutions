@@ -1,0 +1,1460 @@
+{
+  "generatedAt": "2026-03-03T13:38:27.861Z",
+  "chapters": [
+    {
+      "subjectId": "english",
+      "bookId": "eng-1",
+      "chapterId": 1,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "english",
+      "bookId": "eng-1",
+      "chapterId": 2,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "english",
+      "bookId": "eng-1",
+      "chapterId": 3,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "english",
+      "bookId": "eng-1",
+      "chapterId": 4,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "english",
+      "bookId": "eng-1",
+      "chapterId": 5,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "english",
+      "bookId": "eng-1",
+      "chapterId": 6,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "geography",
+      "bookId": "geo-1",
+      "chapterId": 1,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "geography",
+      "bookId": "geo-1",
+      "chapterId": 2,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "geography",
+      "bookId": "geo-1",
+      "chapterId": 3,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "geography",
+      "bookId": "geo-1",
+      "chapterId": 4,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "geography",
+      "bookId": "geo-1",
+      "chapterId": 5,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "geography",
+      "bookId": "geo-1",
+      "chapterId": 6,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "geography",
+      "bookId": "geo-1",
+      "chapterId": 7,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "geography",
+      "bookId": "geo-1",
+      "chapterId": 8,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "geography",
+      "bookId": "geo-1",
+      "chapterId": 9,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 1,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 10,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 11,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 12,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 13,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 14,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 15,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 16,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 17,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 18,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 19,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 2,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 20,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 21,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 22,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 23,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 24,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 25,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 26,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 27,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 28,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 3,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 4,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 5,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 6,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 7,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 8,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "hindi",
+      "bookId": "hin-1",
+      "chapterId": 9,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "history",
+      "bookId": "hist-1",
+      "chapterId": 1,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "history",
+      "bookId": "hist-1",
+      "chapterId": 2,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "history",
+      "bookId": "hist-1",
+      "chapterId": 3,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "history",
+      "bookId": "hist-1",
+      "chapterId": 4,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "history",
+      "bookId": "hist-1",
+      "chapterId": 5,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "history",
+      "bookId": "hist-1",
+      "chapterId": 7,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "history",
+      "bookId": "hist-1",
+      "chapterId": 8,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "history",
+      "bookId": "hist-1",
+      "chapterId": 9,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "marathi",
+      "bookId": "mar-1",
+      "chapterId": 11,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "marathi",
+      "bookId": "mar-1",
+      "chapterId": 13,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "marathi",
+      "bookId": "mar-1",
+      "chapterId": 15,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "marathi",
+      "bookId": "mar-1",
+      "chapterId": 17,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "marathi",
+      "bookId": "mar-1",
+      "chapterId": 18,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "marathi",
+      "bookId": "mar-1",
+      "chapterId": 22,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "marathi",
+      "bookId": "mar-1",
+      "chapterId": 3,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "marathi",
+      "bookId": "mar-1",
+      "chapterId": 5,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "marathi",
+      "bookId": "mar-1",
+      "chapterId": 7,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "marathi",
+      "bookId": "mar-1",
+      "chapterId": 9,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "editorial-team",
+        "name": "SSC Solutions Editorial Team",
+        "bio": "The SSC Solutions editorial team prepares chapter-wise textbook answers, verifies updates against syllabus revisions, and maintains structured learning notes for Maharashtra Board students.",
+        "photo": "/covers/eng-1.png",
+        "social": {
+          "website": "/about.html"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-1",
+      "chapterId": 1,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-1",
+      "chapterId": 16,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-1",
+      "chapterId": 2,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-1",
+      "chapterId": 3,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-1",
+      "chapterId": 5,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-2",
+      "chapterId": 1,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-2",
+      "chapterId": 2,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-2",
+      "chapterId": 3,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-2",
+      "chapterId": 4,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-2",
+      "chapterId": 5,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "math",
+      "bookId": "math-2",
+      "chapterId": 6,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "aarti-kulkarni",
+        "name": "Aarti Kulkarni",
+        "bio": "Aarti is a mathematics educator focused on Algebra and Geometry problem-solving strategies for SSC board examinations.",
+        "photo": "/covers/math-1.png",
+        "social": {
+          "linkedin": "https://www.linkedin.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 1,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 10,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 15,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 2,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 3,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 4,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 5,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 6,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 7,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 8,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-1",
+      "chapterId": 9,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 1,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 10,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 11,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 13,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 18,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 2,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 20,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 3,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 4,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 5,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 6,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 7,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 8,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    },
+    {
+      "subjectId": "science",
+      "bookId": "sci-2",
+      "chapterId": 9,
+      "lastUpdated": "2026-02-27",
+      "author": {
+        "slug": "rahul-patil",
+        "name": "Rahul Patil",
+        "bio": "Rahul specializes in Science and Technology exam preparation with concept-first explanations and revision checklists.",
+        "photo": "/covers/sci-1.png",
+        "social": {
+          "twitter": "https://x.com"
+        }
+      }
+    }
+  ]
+}

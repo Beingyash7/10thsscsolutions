@@ -15,6 +15,21 @@ export default defineConfig(({ mode }) => {
       allowedHosts: [".loca.lt", "localhost", "127.0.0.1"],
     },
     plugins: [react()],
+    build: {
+      target: 'es2020',
+      cssCodeSplit: true,
+      minify: 'esbuild',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            react: ['react', 'react-dom'],
+          },
+          entryFileNames: 'assets/[name].[hash].js',
+          chunkFileNames: 'assets/[name].[hash].js',
+          assetFileNames: 'assets/[name].[hash].[ext]',
+        },
+      },
+    },
     define: {
       "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
       "process.env.GEMINI_API_KEY": JSON.stringify(env.GEMINI_API_KEY),

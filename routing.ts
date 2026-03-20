@@ -31,6 +31,7 @@ export const parseLocationToNav = (pathname: string): NavigationState => {
   if (cleanPath === '/class-8') return { page: Page.Class8 };
   if (cleanPath === '/class-9') return { page: Page.Class9 };
   if (cleanPath === '/class-10') return { page: Page.Class10 };
+  if (cleanPath === '/papers') return { page: Page.Papers };
 
   if (!cleanPath.startsWith(BASE_CLASS10_PATH)) {
     return { page: Page.Home };
@@ -67,6 +68,7 @@ export const navToPath = (nav: NavigationState): string => {
   if (nav.page === Page.Home) return '/';
   if (nav.page === Page.Class8) return '/class-8';
   if (nav.page === Page.Class9) return '/class-9';
+  if (nav.page === Page.Papers) return '/papers';
   if (nav.page !== Page.Class10) return '/class-10';
 
   const subject = findSubject(nav.subjectId);
@@ -118,6 +120,14 @@ export const getSeoForNav = (nav: NavigationState) => {
       title: `Class 9 Study Hub | ${siteName}`,
       description:
         'Class 9 Maharashtra Board study hub with revision plans, practice checklists and exam preparation support.',
+    };
+  }
+
+  if (nav.page === Page.Papers) {
+    return {
+      title: `Previous Year SSC Papers Coming Soon | ${siteName}`,
+      description:
+        'Previous year Maharashtra Board SSC papers are coming soon. The paper archive is being organized and verified before release.',
     };
   }
 

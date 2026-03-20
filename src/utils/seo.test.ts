@@ -17,7 +17,7 @@ describe('SEO utils', () => {
         'Gravitation chapter solutions with step-by-step textbook answers, solved examples, and key points designed for SSC board revision and quick exam preparation support.',
     });
 
-    expect(meta.title).toBe('Gravitation – 10th SSC Solutions');
+    expect(meta.title).toBe('Gravitation - 10th SSC Solutions');
     expect(meta.description.length).toBeGreaterThanOrEqual(150);
     expect(meta.description.length).toBeLessThanOrEqual(160);
   });
@@ -27,13 +27,9 @@ describe('SEO utils', () => {
     expect(canonical).toBe('https://10thsscsolutions.pages.dev/10th-ssc-solutions/math');
   });
 
-  it('returns en/mr/hi hreflang links', () => {
-    const links = buildHreflangAlternates(
-      'https://10thsscsolutions.pages.dev',
-      '/10th-ssc-solutions/math/math-1/chapter-1-linear-equations',
-    );
-    expect(links.map((link) => link.hreflang)).toEqual(['en', 'mr', 'hi', 'x-default']);
-    expect(links[0].href).toContain('/en/10th-ssc-solutions/math/math-1/chapter-1-linear-equations');
+  it('returns no hreflang links when alternate locales are not published', () => {
+    const links = buildHreflangAlternates();
+    expect(links).toEqual([]);
   });
 
   it('builds FAQPage schema with author metadata', () => {
@@ -55,4 +51,3 @@ describe('SEO utils', () => {
     expect(inferImageAlt('/covers/math-1.webp', 'Algebra cover')).toBe('Algebra cover');
   });
 });
-

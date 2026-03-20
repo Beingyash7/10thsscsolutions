@@ -34,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, isDarkMode, to
               { label: 'Class 8', page: Page.Class8 },
               { label: 'Class 9', page: Page.Class9 },
               { label: 'Class 10', page: Page.Class10 },
-              { label: 'Papers', href: '/papers' },
+              { label: 'Papers Soon', href: '/papers' },
             ].map((item) => (
               item.href ? (
               <a

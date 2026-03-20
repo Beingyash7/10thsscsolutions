@@ -54,6 +54,7 @@ export enum Page {
   Class10 = 'class-10',
   Class9 = 'class-9',
   Class8 = 'class-8',
+  Papers = 'papers',
 }
 
 export interface NavigationState {

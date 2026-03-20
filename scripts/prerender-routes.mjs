@@ -106,7 +106,7 @@ const normalizeDescription = (value) => {
 };
 
 const frontmatterMeta = (chapterName, subject, summary) => ({
-  title: `${chapterName} – 10th SSC Solutions`,
+  title: `${chapterName} - 10th SSC Solutions`,
   description: normalizeDescription(
     summary ||
       `${chapterName} in ${subject} with chapter-wise textbook question answers, concise explanations, and revision-ready points.`,
@@ -121,6 +121,7 @@ const parsePathContext = (pathname) => {
   if (trimmed === 'class-8') return { type: 'class8' };
   if (trimmed === 'class-9') return { type: 'class9' };
   if (trimmed === 'class-10' || trimmed === '10th-ssc-solutions') return { type: 'class10' };
+  if (trimmed === 'papers') return { type: 'papers' };
 
   if (!trimmed.startsWith('10th-ssc-solutions/')) return { type: 'other' };
 
@@ -186,6 +187,14 @@ const getMetaForPath = (pathname) => {
       title: `10th SSC Subject Solutions | ${siteName}`,
       description:
         'Browse subject-wise 10th SSC Maharashtra Board solutions, digest answers and textbook question-answer pages.',
+    };
+  }
+
+  if (ctx.type === 'papers') {
+    return {
+      title: `Previous Year SSC Papers Coming Soon | ${siteName}`,
+      description:
+        'Previous year Maharashtra Board SSC papers are coming soon. The paper archive is being organized and verified before release.',
     };
   }
 
@@ -450,15 +459,6 @@ const updateHtmlMeta = (html, pathname) => {
   const chapterItems = ctx.type === 'chapter' ? getChapterItems(ctx) : [];
 
   let next = html;
-  const hreflangLinks = [
-    { lang: 'en', href: `${DEFAULT_ORIGIN}/en${pathname === '/' ? '' : pathname}` },
-    { lang: 'mr', href: `${DEFAULT_ORIGIN}/mr${pathname === '/' ? '' : pathname}` },
-    { lang: 'hi', href: `${DEFAULT_ORIGIN}/hi${pathname === '/' ? '' : pathname}` },
-    { lang: 'x-default', href: canonical },
-  ]
-    .map((entry) => `<link rel="alternate" hreflang="${entry.lang}" href="${escapeAttr(entry.href)}" />`)
-    .join('\n');
-
   next = next.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(meta.title)}</title>`);
   next = next.replace(/<html[^>]*>/i, '<html lang="en" class="light">');
   next = next.replace(/<meta[^>]*name="keywords"[^>]*\/?>\s*/gi, '');
@@ -470,7 +470,7 @@ const updateHtmlMeta = (html, pathname) => {
   next = next.replace(/<meta[^>]*name="twitter:description"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="twitter:description" content="${escapeAttr(meta.description)}" />`);
   next = next.replace(/<meta[^>]*property="og:url"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:url" content="${escapeAttr(canonical)}" />`);
   next = next.replace(/<link[^>]*rel="canonical"[^>]*href="[^"]*"[^>]*\/?>/i, `<link rel="canonical" href="${escapeAttr(canonical)}" />`);
-  next = next.replace(/<link[^>]*rel="alternate"[^>]*title="Sitemap"[^>]*\/?>/i, `<link rel="alternate" type="application/xml" title="Sitemap" href="/sitemap.xml" />\n${hreflangLinks}`);
+  next = next.replace(/<link[^>]*rel="alternate"[^>]*title="Sitemap"[^>]*\/?>/i, `<link rel="alternate" type="application/xml" title="Sitemap" href="/sitemap.xml" />`);
 
   if (pathname !== '/' && !pathname.endsWith('.html')) {
     next = next.replace(/<\/head>/i, `${buildStructuredData(pathname, chapterItems)}\n</head>`);

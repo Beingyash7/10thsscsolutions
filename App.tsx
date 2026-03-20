@@ -5,8 +5,8 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import Class10Page from './pages/Class10Page';
 import ClassHubPage from './pages/ClassHubPage';
+import PapersPage from './pages/PapersPage';
 import { getCanonicalUrl, getSeoForNav, navToPath, parseLocationToNav } from './routing';
-import { buildHreflangAlternates } from './src/utils/seo';
 
 const App: React.FC = () => {
   const [nav, setNav] = useState<NavigationState>(() =>
@@ -95,19 +95,6 @@ const App: React.FC = () => {
     }
 
     document.documentElement.setAttribute('lang', 'en');
-
-    const alternateLinks = buildHreflangAlternates(window.location.origin, nextPath);
-    const oldAlternates = document.querySelectorAll('link[rel="alternate"][hreflang]');
-    oldAlternates.forEach((node) => node.parentNode?.removeChild(node));
-
-    alternateLinks.forEach((alternate) => {
-      const link = document.createElement('link');
-      link.setAttribute('rel', 'alternate');
-      link.setAttribute('hreflang', alternate.hreflang);
-      link.setAttribute('href', alternate.href);
-      link.setAttribute('data-hreflang-generated', 'true');
-      document.head.appendChild(link);
-    });
   }, [nav]);
 
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
@@ -161,6 +148,7 @@ const App: React.FC = () => {
         {nav.page === Page.Class9 && (
           <ClassHubPage classNumber={9} onNavigate={navigateTo} />
         )}
+        {nav.page === Page.Papers && <PapersPage />}
       </main>
 
       <Footer onNavigate={navigateTo} />

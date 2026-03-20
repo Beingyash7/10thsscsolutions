@@ -35,7 +35,7 @@ export const generatePageMeta = (input: MetaInput): { title: string; description
   );
 
   return {
-    title: `${chapterName} – 10th SSC Solutions`,
+    title: `${chapterName} - 10th SSC Solutions`,
     description: clampDescription(summary),
   };
 };
@@ -46,18 +46,7 @@ export const buildCanonicalUrl = (origin: string, pathname: string): string => {
   return `${normalizedOrigin}${normalizedPath}`;
 };
 
-export const buildHreflangAlternates = (origin: string, pathname: string) => {
-  const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
-  const make = (localePath: string) => buildCanonicalUrl(origin, localePath);
-  const suffix = normalizedPath === '/' ? '' : normalizedPath;
-
-  return [
-    { hreflang: 'en', href: make(`/en${suffix}` || '/en') },
-    { hreflang: 'mr', href: make(`/mr${suffix}` || '/mr') },
-    { hreflang: 'hi', href: make(`/hi${suffix}` || '/hi') },
-    { hreflang: 'x-default', href: make(normalizedPath) },
-  ];
-};
+export const buildHreflangAlternates = () => [];
 
 export const inferImageAlt = (src: string, explicitAlt?: string): string => {
   if (explicitAlt && explicitAlt.trim()) return explicitAlt.trim();

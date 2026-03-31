@@ -18,6 +18,7 @@ const App: React.FC = () => {
     if (typeof window === 'undefined' || !window.matchMedia) {
       return false;
     }
+
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,7 +41,7 @@ const App: React.FC = () => {
       setIsDarkMode(event.matches);
     };
 
-    // Sync on mount in case browser theme changed before hydration/mount.
+    // Always start by syncing with the current system theme.
     setIsDarkMode(mediaQuery.matches);
 
     if (typeof mediaQuery.addEventListener === 'function') {
@@ -97,7 +98,7 @@ const App: React.FC = () => {
     document.documentElement.setAttribute('lang', 'en');
   }, [nav]);
 
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
+  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
   const navigateTo = (page: Page) => {
     setNav({ page });
@@ -108,6 +109,8 @@ const App: React.FC = () => {
     setNav(prev => ({ ...prev, ...update }));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const routeKey = navToPath(nav);
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-indigo-100 selection:text-indigo-600">
@@ -120,35 +123,37 @@ const App: React.FC = () => {
       />
       
       <main className="flex-grow">
-        {nav.page === Page.Home && (
-          <HomePage
-            onNavigate={navigateTo}
-            searchQuery={searchQuery}
-            onQuickViewBook={(book) =>
-              setNav({
-                page: Page.Class10,
-                subjectId: book.subjectId,
-                bookId: book.id,
-                chapterId: undefined,
-                exerciseId: undefined,
-              })
-            }
-          />
-        )}
-        {nav.page === Page.Class10 && (
-          <Class10Page 
-            nav={nav} 
-            onNavigate={navigateTo}
-            onUpdateNav={setDeepNav}
-          />
-        )}
-        {nav.page === Page.Class8 && (
-          <ClassHubPage classNumber={8} onNavigate={navigateTo} />
-        )}
-        {nav.page === Page.Class9 && (
-          <ClassHubPage classNumber={9} onNavigate={navigateTo} />
-        )}
-        {nav.page === Page.Papers && <PapersPage />}
+        <div key={routeKey} className="page-transition">
+          {nav.page === Page.Home && (
+            <HomePage
+              onNavigate={navigateTo}
+              searchQuery={searchQuery}
+              onQuickViewBook={(book) =>
+                setNav({
+                  page: Page.Class10,
+                  subjectId: book.subjectId,
+                  bookId: book.id,
+                  chapterId: undefined,
+                  exerciseId: undefined,
+                })
+              }
+            />
+          )}
+          {nav.page === Page.Class10 && (
+            <Class10Page 
+              nav={nav} 
+              onNavigate={navigateTo}
+              onUpdateNav={setDeepNav}
+            />
+          )}
+          {nav.page === Page.Class8 && (
+            <ClassHubPage classNumber={8} onNavigate={navigateTo} />
+          )}
+          {nav.page === Page.Class9 && (
+            <ClassHubPage classNumber={9} onNavigate={navigateTo} />
+          )}
+          {nav.page === Page.Papers && <PapersPage />}
+        </div>
       </main>
 
       <Footer onNavigate={navigateTo} />

@@ -5,6 +5,7 @@ const ROOT = process.cwd();
 const SHAALAA_DIR = path.join(ROOT, 'public', 'shaalaa');
 const AUTHORS_DIR = path.join(ROOT, 'public', 'authors');
 const CHAPTER_META_PATH = path.join(SHAALAA_DIR, 'chapter-meta.json');
+const SITE_URL = (process.env.SITE_URL || 'https://10thsscsolutions.pages.dev').replace(/\/+$/, '');
 
 const BOOKS = [
   { subjectId: 'math', bookId: 'math-1', file: 'algebra_maths_1.json' },
@@ -116,7 +117,31 @@ for (const author of Object.values(AUTHORS)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${author.name} - 10th SSC Solutions</title>
   <meta name="description" content="${author.name} profile and editorial bio for 10th SSC Solutions." />
-  <link rel="canonical" href="https://10thsscsolutions.pages.dev/authors/${author.slug}.html" />
+  <meta name="application-name" content="10th SSC Solutions" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta property="og:site_name" content="10th SSC Solutions" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="${author.name} - 10th SSC Solutions" />
+  <meta property="og:description" content="${author.name} profile and editorial bio for 10th SSC Solutions." />
+  <meta property="og:url" content="${SITE_URL}/authors/${author.slug}.html" />
+  <meta property="og:image" content="${SITE_URL}${author.photo}" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="${author.name} - 10th SSC Solutions" />
+  <meta name="twitter:description" content="${author.name} profile and editorial bio for 10th SSC Solutions." />
+  <meta name="twitter:image" content="${SITE_URL}${author.photo}" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/brand/favicon.png" />
+  <link rel="canonical" href="${SITE_URL}/authors/${author.slug}.html" />
+  <script type="application/ld+json">${JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    mainEntity: {
+      '@type': 'Person',
+      name: author.name,
+      description: author.bio,
+      image: `${SITE_URL}${author.photo}`,
+      url: `${SITE_URL}/authors/${author.slug}.html`,
+    },
+  })}</script>
 </head>
 <body style="font-family: Arial, sans-serif; max-width: 760px; margin: 40px auto; line-height: 1.6; padding: 0 16px;">
   <h1>${author.name}</h1>

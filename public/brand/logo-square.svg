@@ -1,0 +1,28 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>10th SSC Solutions square logo</title>
+  <rect x="10" y="10" width="492" height="492" rx="48" fill="#FFFFFF" stroke="#2563EB" stroke-width="8"/>
+  <g transform="translate(78 64)">
+    <path d="M61 43C66 33 78 30 87 36C96 41 99 51 94 60C88 69 76 72 66 67C57 61 55 51 61 43Z" fill="#FACC15"/>
+    <path d="M99 19C103 13 111 13 116 19C121 24 119 33 113 37C107 42 98 41 94 35C90 30 92 23 99 19Z" fill="#FACC15"/>
+    <path d="M110 53C113 48 120 48 124 52C128 56 127 63 121 67C116 71 110 70 107 65C104 61 105 57 110 53Z" fill="#FACC15"/>
+    <path d="M29 73C36 62 49 58 60 64C70 71 73 83 67 95C60 107 46 110 35 103C25 96 23 84 29 73Z" fill="#FACC15"/>
+    <path d="M88 153L29 142L39 71C70 66 94 69 119 79L121 137L88 153Z" fill="#2563EB"/>
+    <path d="M147 153L206 142L196 71C165 66 141 69 116 79L114 137L147 153Z" fill="#2563EB"/>
+    <path d="M46 91L40 132L86 139C97 132 106 128 116 126V97C96 86 73 82 46 91Z" fill="#FFFFFF"/>
+    <path d="M189 91L195 132L149 139C138 132 129 128 119 126V97C139 86 162 82 189 91Z" fill="#FFFFFF"/>
+    <path d="M30 150L88 161L117 181L147 161L205 150" stroke="#1D4ED8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M45 164L88 171L117 190L147 171L190 164" stroke="#1D4ED8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M118 125C145 125 167 104 167 77C167 50 145 28 118 28C91 28 69 50 69 77C69 104 91 125 118 125Z" fill="#174FBD"/>
+    <path d="M118 126C136 126 151 135 159 152L134 181L118 188L102 181L77 152C85 135 100 126 118 126Z" fill="#174FBD"/>
+    <path d="M92 76L111 94L146 56" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g fill="#091C4C">
+    <path d="M152 318V393H126V340H103V318H152Z"/>
+    <path d="M239 364C239 390 219 407 191 407C162 407 142 390 142 364C142 338 162 320 191 320C219 320 239 338 239 364ZM212 364C212 351 204 343 191 343C177 343 169 351 169 364C169 377 177 385 191 385C204 385 212 377 212 364Z"/>
+    <path d="M276 334V347H291V364H276V400H255V364H242V347H255V334H276Z"/>
+    <path d="M383 316C415 316 438 333 438 359C438 379 424 393 400 396L444 432H406L366 399H343V432H318V316H383ZM379 337H343V378H379C396 378 407 370 407 358C407 346 396 337 379 337Z" fill="#2563EB"/>
+  </g>
+  <path d="M74 456H131" stroke="#2563EB" stroke-width="5" stroke-linecap="round"/>
+  <path d="M377 456H438" stroke="#2563EB" stroke-width="5" stroke-linecap="round"/>
+  <text x="147" y="469" fill="#091C4C" font-family="Poppins, Montserrat, Arial, sans-serif" font-size="44" font-weight="600" letter-spacing="5">Solutions</text>
+</svg>

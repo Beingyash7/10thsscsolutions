@@ -16,16 +16,23 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, isDarkMode, to
   return (
     <nav className="sticky top-0 z-50 bg-white/90 dark:bg-background-dark/90 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20 items-center">
+        <div className="flex justify-between h-20 md:h-24 items-center">
           {/* Logo */}
           <div 
-            className="flex items-center gap-3 group cursor-pointer"
+            className="group cursor-pointer flex-shrink-0"
             onClick={() => onNavigate(Page.Home)}
+            aria-label="Go to homepage"
           >
-            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-2xl shadow-lg group-hover:rotate-6 transition-transform">
-              <span className="material-symbols-outlined text-white text-2xl">menu_book</span>
-            </div>
-            <span className="text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">10th SSC Solutions</span>
+            <img
+              src="/brand/home-logo-light.png"
+              alt="10th SSC Solutions"
+              className="block h-10 w-auto transition-transform duration-300 group-hover:scale-[1.02] dark:hidden sm:h-12 md:h-14"
+            />
+            <img
+              src="/brand/home-logo-dark.png"
+              alt="10th SSC Solutions"
+              className="hidden h-10 w-auto transition-transform duration-300 group-hover:scale-[1.02] dark:block sm:h-12 md:h-14"
+            />
           </div>
 
           {/* Desktop Nav */}
@@ -84,15 +91,16 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, isDarkMode, to
               />
             </form>
             <button 
-              className="p-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="pressable p-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               onClick={toggleDarkMode}
+              aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               <span className="material-symbols-outlined block dark:hidden">dark_mode</span>
               <span className="material-symbols-outlined hidden dark:block text-yellow-400">light_mode</span>
             </button>
             <button
               onClick={() => onNavigate(Page.Class10)}
-              className="bg-primary hover:scale-105 active:scale-95 text-white px-6 md:px-7 py-2.5 md:py-3 rounded-2xl font-bold transition-all shadow-xl shadow-primary/30 text-sm md:text-base"
+              className="pressable bg-primary hover:scale-105 text-white px-6 md:px-7 py-2.5 md:py-3 rounded-2xl font-bold transition-all shadow-xl shadow-primary/30 text-sm md:text-base"
             >
               Open Library
             </button>

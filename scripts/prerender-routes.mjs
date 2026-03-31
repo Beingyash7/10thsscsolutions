@@ -457,17 +457,27 @@ const updateHtmlMeta = (html, pathname) => {
   const canonical = `${DEFAULT_ORIGIN}${pathname}`;
   const ctx = parsePathContext(pathname);
   const chapterItems = ctx.type === 'chapter' ? getChapterItems(ctx) : [];
+  const socialImage = `${DEFAULT_ORIGIN}/brand/home-logo-light.png`;
+  const ogType = ctx.type === 'chapter' ? 'article' : 'website';
 
   let next = html;
   next = next.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(meta.title)}</title>`);
   next = next.replace(/<html[^>]*>/i, '<html lang="en" class="light">');
   next = next.replace(/<meta[^>]*name="keywords"[^>]*\/?>\s*/gi, '');
   next = next.replace(/<link[^>]*rel="alternate"[^>]*hreflang="[^"]*"[^>]*\/?>\s*/gi, '');
+  next = next.replace(/<meta[^>]*name="robots"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />`);
   next = next.replace(/<meta[^>]*name="description"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="description" content="${escapeAttr(meta.description)}" />`);
+  next = next.replace(/<meta[^>]*property="og:type"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:type" content="${escapeAttr(ogType)}" />`);
+  next = next.replace(/<meta[^>]*property="og:site_name"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:site_name" content="10th SSC Solutions" />`);
   next = next.replace(/<meta[^>]*property="og:title"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:title" content="${escapeAttr(meta.title)}" />`);
   next = next.replace(/<meta[^>]*property="og:description"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:description" content="${escapeAttr(meta.description)}" />`);
+  next = next.replace(/<meta[^>]*property="og:image"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:image" content="${escapeAttr(socialImage)}" />`);
+  next = next.replace(/<meta[^>]*property="og:image:alt"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:image:alt" content="10th SSC Solutions logo" />`);
+  next = next.replace(/<meta[^>]*name="twitter:card"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="twitter:card" content="summary_large_image" />`);
+  next = next.replace(/<meta[^>]*name="twitter:site"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="twitter:site" content="@10thsscsolutions" />`);
   next = next.replace(/<meta[^>]*name="twitter:title"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="twitter:title" content="${escapeAttr(meta.title)}" />`);
   next = next.replace(/<meta[^>]*name="twitter:description"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="twitter:description" content="${escapeAttr(meta.description)}" />`);
+  next = next.replace(/<meta[^>]*name="twitter:image"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta name="twitter:image" content="${escapeAttr(socialImage)}" />`);
   next = next.replace(/<meta[^>]*property="og:url"[^>]*content="[^"]*"[^>]*\/?>/i, `<meta property="og:url" content="${escapeAttr(canonical)}" />`);
   next = next.replace(/<link[^>]*rel="canonical"[^>]*href="[^"]*"[^>]*\/?>/i, `<link rel="canonical" href="${escapeAttr(canonical)}" />`);
   next = next.replace(/<link[^>]*rel="alternate"[^>]*title="Sitemap"[^>]*\/?>/i, `<link rel="alternate" type="application/xml" title="Sitemap" href="/sitemap.xml" />`);

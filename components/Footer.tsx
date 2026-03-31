@@ -16,11 +16,18 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
           {/* Brand Info */}
           <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="bg-white p-2 rounded-xl">
-                <span className="material-symbols-outlined text-indigo-600 text-2xl">auto_stories</span>
+            <div className="mb-8 flex items-center gap-4">
+              <img
+                src="/brand/brand-mark.png"
+                alt="10th SSC Solutions logo"
+                className="h-16 w-16 rounded-3xl object-cover ring-1 ring-white/10"
+              />
+              <div>
+                <div className="text-3xl font-black tracking-tight text-white">10th SSC</div>
+                <div className="mt-1 text-sm font-semibold uppercase tracking-[0.32em] text-blue-300">
+                  Solutions
+                </div>
               </div>
-              <span className="text-2xl font-black tracking-tight">10th SSC Solutions</span>
             </div>
             <p className="text-slate-400 text-lg leading-relaxed mb-8">
               Revolutionizing how Maharashtra Board students learn, one solution at a time. Playful, accurate, and totally free.

@@ -132,6 +132,7 @@ addUrl('/', 'daily', '1.0', overallLastmod);
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${
   [...urls.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
     .map(
       ([pathname, meta]) =>
         `  <url>\n    <loc>${SITE_URL}${pathname}</loc>\n    <lastmod>${meta.lastmod}</lastmod>\n    <changefreq>${meta.changefreq}</changefreq>\n    <priority>${meta.priority}</priority>\n  </url>`,
@@ -140,5 +141,10 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.s
 }\n</urlset>\n`;
 
 fs.writeFileSync(path.join(PUBLIC_DIR, 'sitemap.xml'), xml, 'utf8');
+fs.writeFileSync(
+  path.join(PUBLIC_DIR, 'robots.txt'),
+  `User-agent: *\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nUser-agent: CCBot\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`,
+  'utf8',
+);
 console.log(`Sitemap generated with ${urls.size} URLs -> public/sitemap.xml`);
 

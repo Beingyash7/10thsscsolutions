@@ -39,21 +39,21 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onQuickViewBook, search
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-3 sm:px-4 py-2 rounded-full mb-6 sm:mb-8 font-bold text-[11px] sm:text-sm tracking-wide animate-bounce">
+          <div className="reveal inline-flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-3 sm:px-4 py-2 rounded-full mb-6 sm:mb-8 font-bold text-[11px] sm:text-sm tracking-wide">
             <span className="material-symbols-outlined text-lg">celebration</span>
             UPDATED FOR 2024-25 SYLLABUS
           </div>
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight mb-6 sm:mb-8 leading-[1.1] dark:text-white">
+          <h1 className="reveal reveal-delay-1 text-3xl sm:text-5xl md:text-7xl font-black tracking-tight mb-6 sm:mb-8 leading-[1.1] dark:text-white">
             Learn Better, <br/>
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500">Achieve Higher</span>
           </h1>
-          <p className="text-base sm:text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-3xl mx-auto mb-8 sm:mb-12 font-medium px-1">
+          <p className="reveal reveal-delay-2 text-base sm:text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-3xl mx-auto mb-8 sm:mb-12 font-medium px-1">
             The most vibrant community for Maharashtra Board students. Get playful, accurate, and easy-to-understand solutions today.
           </p>
 
-          <div className="max-w-3xl mx-auto relative group">
-            <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-[24px] sm:rounded-[32px] blur-xl opacity-25 group-hover:opacity-60 transition duration-500"></div>
-            <div className="relative bg-white dark:bg-slate-800 rounded-2xl sm:rounded-3xl p-2 sm:p-3 shadow-2xl border border-slate-100 dark:border-slate-700">
+          <div className="reveal reveal-delay-3 max-w-3xl mx-auto relative group">
+            <div className="hero-glow absolute -inset-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-[24px] sm:rounded-[32px] blur-xl opacity-25 group-hover:opacity-60 transition duration-500"></div>
+            <div className="relative lift-card bg-white dark:bg-slate-800 rounded-2xl sm:rounded-3xl p-2 sm:p-3 shadow-2xl border border-slate-100 dark:border-slate-700">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 <div className="flex items-center flex-1 min-w-0">
                   <span className="material-symbols-outlined ml-3 sm:ml-6 text-slate-400 text-2xl sm:text-3xl">search</span>
@@ -68,7 +68,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onQuickViewBook, search
                 </div>
                 <button
                   onClick={openLibrary}
-                  className="w-full sm:w-auto bg-indigo-600 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-black text-base sm:text-lg hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-500/40"
+                  className="pressable w-full sm:w-auto bg-indigo-600 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-black text-base sm:text-lg hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-500/40"
                 >
                   Search
                 </button>
@@ -270,7 +270,7 @@ const ClassCard: React.FC<ClassCardProps> = ({ title, desc, icon, color, primary
   };
 
   return (
-    <div className="group relative bg-white dark:bg-slate-800 p-6 sm:p-8 md:p-10 rounded-[28px] sm:rounded-[40px] shadow-xl transition-all duration-500 hover:-translate-y-2 md:hover:-translate-y-4 border border-slate-50 dark:border-slate-700 overflow-hidden flex flex-col items-center text-center">
+    <div className="group lift-card relative bg-white dark:bg-slate-800 p-6 sm:p-8 md:p-10 rounded-[28px] sm:rounded-[40px] shadow-xl border border-slate-50 dark:border-slate-700 overflow-hidden flex flex-col items-center text-center">
       <div className={`absolute top-0 right-0 w-32 h-32 opacity-10 rounded-bl-[100px] -mr-8 -mt-8 transition-all group-hover:scale-110 ${colorClasses[color]}`}></div>
       <div className={`w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br ${colorClasses[color]} rounded-3xl flex items-center justify-center mb-6 sm:mb-10 shadow-lg transform group-hover:rotate-12 transition-transform`}>
         <span className="material-symbols-outlined text-white text-4xl sm:text-5xl">{icon}</span>
@@ -280,7 +280,7 @@ const ClassCard: React.FC<ClassCardProps> = ({ title, desc, icon, color, primary
       <div className="mt-auto w-full">
         <button 
           onClick={onClick}
-          className={`block w-full py-3.5 sm:py-5 rounded-2xl text-white font-bold text-base sm:text-xl transition-colors shadow-lg ${colorClasses[color].split(' ').pop()} hover:brightness-110`}
+          className={`pressable block w-full py-3.5 sm:py-5 rounded-2xl text-white font-bold text-base sm:text-xl transition-colors shadow-lg ${colorClasses[color].split(' ').pop()} hover:brightness-110`}
         >
           {primaryBtn || 'Get Started'}
         </button>

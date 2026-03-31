@@ -13,7 +13,7 @@ const toSrcSet = (src: string): string => {
 };
 
 const QuickViewCard: React.FC<QuickViewCardProps> = ({ book, onQuickView }) => (
-  <div className="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] transition-all duration-500">
+  <div className="group lift-card bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] transition-all duration-500">
     <div className="aspect-[3/4] relative overflow-hidden bg-slate-200">
       <img
         alt={inferImageAlt(book.imageUrl, book.title)}
@@ -30,7 +30,7 @@ const QuickViewCard: React.FC<QuickViewCardProps> = ({ book, onQuickView }) => (
       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-6 gap-4">
         <button
           onClick={() => onQuickView?.(book)}
-          className="bg-white text-slate-900 px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-indigo-50 transition-colors w-full justify-center"
+          className="pressable bg-white text-slate-900 px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-indigo-50 transition-colors w-full justify-center"
         >
           <span className="material-symbols-outlined">visibility</span> Quick View
         </button>
